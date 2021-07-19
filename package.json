@@ -1,0 +1,24 @@
+{
+  "name": "tracker",
+  "version": "1.0.0",
+  "description": "A firebase database tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firebase-me/tracker.git"
+  },
+  "keywords": [
+    "firebase",
+    "analytics",
+    "logging"
+  ],
+  "author": "discord.firebase.me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/firebase-me/tracker/issues"
+  },
+  "homepage": "https://github.com/firebase-me/tracker#readme"
+}
