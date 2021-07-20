@@ -6,7 +6,7 @@ import meta from './_meta.js';
 // Constant
 let Singleton;
 
-const initiate = async function (databaseUrl, auth, ping = true) {
+const init = async function (databaseUrl, auth, ping = true) {
     Singleton ? Singleton[dbUrl] = databaseUrl :
         Singleton = { dbUrl = databaseUrl };
 
@@ -50,4 +50,4 @@ const byteCount = (s) => {
     return encodeURI(s).split(/%..|./).length - 1;
 }
 
-export default { Singleton, initiate, updateAuth, firestore, realtime, storage, meta }
+export default { Singleton, init, updateAuth, firestore, realtime, storage, meta }

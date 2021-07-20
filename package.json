@@ -1,5 +1,5 @@
 {
-  "name": "tracker",
+  "name": "@firebase-me/tracker",
   "version": "1.0.0",
   "description": "A firebase database tracker",
   "main": "index.js",
