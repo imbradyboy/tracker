@@ -9,9 +9,9 @@ import tracker from '@firebase-me/tracker';
 
 tracker.init(databaseUrl, auth(optional), ping?(optional))
 ```
-> databaseURL is the realtime database url from your web credentials
-> auth - optional - only needed when initiating after the user is declared
-> ping - optional - only valid if a current auth object is processed
+- databaseURL is the realtime database url from your web credentials
+- auth - optional - only needed when initiating after the user is declared
+- ping - optional - only valid if a current auth object is processed
 
 when the user state changes, the user auth object needs to be updated:
 ```javascript
