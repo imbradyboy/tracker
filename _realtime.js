@@ -11,7 +11,7 @@ const trigger = (snapshot, meta, path) => {
         meta: typeof meta =="string"? meta: JSON.stringify(meta) || null,
     };
     if (Singleton)
-        return await fetch(Singleton.dbUrl + `/tracker.json`, {
+        return await fetch(Singleton.dbUrl + `/tracker/realtime.json`, {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
             method: "POST",
