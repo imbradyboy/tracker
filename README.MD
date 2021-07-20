@@ -26,7 +26,7 @@ you can pass it as the `user` object as such `{uid:"userUID", idToken:"ID token 
 
 There are 3 ways we intend to allow users to utilize this suite:
 1: Pass the snapshot from the request into the appropriate tracker method and it will update to the appropriate realtime DB.
-2: Assign a custom callback function via: `tracker.<service>.callback = myFuntion(payload){}`
+2: Assign a custom callback function via: `tracker.<service>.setCallback = myFuntion(payload){}`
 3: If no callback(2) is assigned and the tracker has not been initialized: it will simply return the payload as a JSON object so you can handle it through a console log, custom integration, etc.
 
 
