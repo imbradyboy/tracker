@@ -26,7 +26,7 @@ you can pass it as the `user` object as such `{uid:"userUID", idToken:"ID token 
 
 There are 3 ways we intend to allow users to utilize this suite:
 1: Pass the snapshot from the request into the appropriate tracker method and it will update to the appropriate realtime DB.
-2: Assign a custom callback function via: `tracker.<service>.setCallback = myFuntion(payload){}`
+2: Assign a custom callback function via: `tracker.<service>.setCallback(myFuntion)` which expects a single parameter payload(3)
 3: If no callback(2) is assigned and the tracker has not been initialized: it will simply return the payload as a JSON object so you can handle it through a console log, custom integration, etc.
 
 
@@ -46,5 +46,17 @@ Each snapshot is evaluated, Firestore as Documents (supports cached tracking)
 Realtime DB is evaluated as Bytes and rounded to the nearest KB
 Meta uses the same as Realtime.
 Each trigger also supports custom path overrides, allowing you to define assign the snapshot path as a unique path independant of their original reference path. This can be used for custom filtering and targeting.
+
+Standard payload:
+```javascript
+{
+    time: timestamp,
+    auth: string | null,
+    path: string | null,
+    size: number | null,
+    cache: number | null, // firestore only
+    meta: string | null,
+}
+```
 
 *Storage is not functional at this time, please do not use it as it will most likely throw errors.*
