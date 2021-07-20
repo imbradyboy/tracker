@@ -3,13 +3,12 @@ const callback;
 
 const trigger = (snapshot, tag, path) => {
     const docCount = getDocumentCount(snapshot);
-    const payload =
-    {
+    const payload = {
         time: Date.now(),
         auth: Singleton.auth.uid || null,
         path: path || snapshot.path || snapshot.ref || null,
         size: docCount.count || null,
-        cache: docCount.cache>0? docCount.cache:null,
+        cache: docCount.cache > 0 ? docCount.cache : null,
         meta: typeof tag == "string" ? tag : JSON.stringify(tag) || null,
     };
     if (Singleton)
@@ -35,7 +34,7 @@ function getDocumentCount(snapshot) {
         return { count: snapshot.size || _count, cache: _cache };
     }
     else {
-        return {count: snapshot.exists() ? 1 : 0, cache: snapshot.metadata.fromCache ? 1 : 0}
+        return { count: snapshot.exists() ? 1 : 0, cache: snapshot.metadata.fromCache ? 1 : 0 }
     }
 }
 }
