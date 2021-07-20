@@ -11,7 +11,7 @@ const initiate = async function (databaseUrl, auth, ping = true) {
         Singleton = { dbUrl = databaseUrl };
 
     if (ping && auth) {
-        const pingPath = databaseUrl + `/tracker/_ping${auth.uid}.json`;
+        const pingPath = databaseUrl + `/tracker/ping_${auth.uid}.json?${typeof auth.getIdToken == "function" ? "auth=" + await auth.getIdToken() : auth.idToken || null}`;
         return await fetch(pingPath, {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(
@@ -34,7 +34,7 @@ const initiate = async function (databaseUrl, auth, ping = true) {
 }
 
 const updateAuth = function (_auth) {
-    if(Singleton) Singleton[auth] = _auth
+    if (Singleton) Singleton[auth] = _auth
     else throw new Error("Tracker is not Initialized");
     return Singleton;
 }
@@ -46,8 +46,8 @@ export const Calculate = (data) => {
         : byteCount(JSON.stringify(data))
     return Math.ceil(rawLength / 1000)
 }
-const  byteCount = (s)=> {
+const byteCount = (s) => {
     return encodeURI(s).split(/%..|./).length - 1;
 }
 
-export default {Singleton, initiate, updateAuth, firestore,realtime,storage,meta}
+export default { Singleton, initiate, updateAuth, firestore, realtime, storage, meta }
