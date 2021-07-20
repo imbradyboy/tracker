@@ -9,7 +9,7 @@ const trigger = (snapshot, tag, path) => {
         auth: Singleton.auth.uid || null,
         path: path || snapshot.path || snapshot.ref || null,
         size: docCount.count || null,
-        cache: docCount.cache,
+        cache: docCount.cache>0? docCount.cache:null,
         meta: typeof tag == "string" ? tag : JSON.stringify(tag) || null,
     };
     if (Singleton)
