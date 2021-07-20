@@ -4,7 +4,7 @@ This is a Firebase Usage Tracker, it is designed to to capture snapshots from fi
 The package uses the REST API to reduce any potential overhead
 
 to Use:
-```
+```javascript
 import tracker from '@firebase-me/tracker';
 
 tracker.init(databaseUrl, auth(optional), ping?(optional))
@@ -14,7 +14,7 @@ tracker.init(databaseUrl, auth(optional), ping?(optional))
 > ping - optional - only valid if a current auth object is processed
 
 when the user state changes, the user auth object needs to be updated:
-```
+```javascript
 onAuthStateChanged(user){
     tracker.updateAuth(user)
 }
