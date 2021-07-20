@@ -1,7 +1,7 @@
 import { Singleton } from './index.js';
 const callback;
 
-const meta = (data, tag, path) => {
+const trigger = (data, tag, path) => {
     const payload =
     {
         time: Date.now(),
@@ -32,4 +32,4 @@ function byteCount(s) {
 }
 
 const setCallback = (func) => callback = func;
-export default { meta, callback, setCallback }
+export default { trigger, callback, setCallback }
