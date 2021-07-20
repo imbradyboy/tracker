@@ -7,7 +7,7 @@ to Use:
 ```javascript
 import tracker from '@firebase-me/tracker';
 
-tracker.init(databaseUrl, auth(optional), ping?(optional))
+tracker.init(databaseUrl, auth?(optional), ping?(optional))
 ```
 - databaseURL is the realtime database url from your web credentials
 - auth - optional - only needed when initiating after the user is declared
