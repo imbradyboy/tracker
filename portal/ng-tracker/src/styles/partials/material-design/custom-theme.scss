@@ -1,0 +1,33 @@
+/**
+ * Create Angular Material custom theme as per documentation guidelines
+ * See articles here:
+ * https://blog.thoughtram.io/angular/2017/05/23/custom-themes-with-angular-material.html#:~:text=As%20for%20Angular%20Material%2C%20it,action%20buttons%20and%20interactive%20elements
+ * https://github.com/angular/components/blob/master/guides/duplicate-theming-styles.md/
+ */
+
+@import 'theme-colours';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Palette is found in theme-colours.scss
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as `color` or `typography`.
+$custom-dark-theme: mat-dark-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+    warn: $custom-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+// default dark theme
+@include angular-material-theme($custom-dark-theme);

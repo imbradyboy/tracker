@@ -1,0 +1,14 @@
+.row {
+  @media screen and (max-width: 599px) {
+    height: calc(100vh - 56px);
+  }
+  @media screen and (min-width: 600px) {
+    height: calc(100vh - 64px);
+  }
+}
+
+.auth-form-container {
+  display: grid;
+  place-items: center;
+}
+

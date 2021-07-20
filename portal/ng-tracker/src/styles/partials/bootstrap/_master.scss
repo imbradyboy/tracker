@@ -1,0 +1,24 @@
+/**
+ * Master file to include all other files related to overriding and modifying bootstrap to our needs
+ */
+
+// Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+// Imports functions, variables, and mixins that are needed by other Bootstrap files
+@import "../../../../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+@import "variables"; // redefined bootstrap variables
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../../../../node_modules/bootstrap/scss/variables";
+@import "../../../../node_modules/bootstrap/scss/mixins";
+
+// 4. Include any optional Bootstrap components as you like
+// This is where you would add other bootstrap partials if you want them in the project
+@import "../../../../node_modules/bootstrap/scss/reboot"; // Import Bootstrap Reboot (bootstrap's version of browser reset)
+@import "../../../../node_modules/bootstrap/scss/grid"; // add the grid
+@import "../../../../node_modules/bootstrap/scss/bootstrap-utilities"; // add css utilities
+
+@import "reset"; // override bootstrap styles we don't want

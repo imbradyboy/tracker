@@ -1,0 +1,16 @@
+/**
+ * Resets bootstrap styles that conflict with material design
+ */
+
+@import "variables"; // redefined bootstrap variables
+
+* {
+  &:active,
+  :focus {
+    outline: none !important;  // 1
+  }
+}
+
+a:not(.mat-button):not(.mat-raised-button):not(.mat-fab):not(.mat-mini-fab):not([mat-list-item]) {
+  color: $link-color; // 2
+}

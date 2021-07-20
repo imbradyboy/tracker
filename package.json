@@ -21,8 +21,5 @@
     "url": "https://github.com/firebase-me/tracker/issues"
   },
   "homepage": "https://github.com/firebase-me/tracker#readme",
-  "private": false,
-  "dependencies": {
-    "@angular/cli": "^11.2.14"
-  }
+  "private": false
 }

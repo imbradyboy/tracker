@@ -1,0 +1,7 @@
+/**
+ * Global app styles
+ */
+@import 'partials/material-design/custom-theme'; // our custom theme
+
+// Include our customized and fixed parts of bootstrap required for this project
+@import 'partials/bootstrap/master';
