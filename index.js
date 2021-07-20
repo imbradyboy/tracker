@@ -40,6 +40,15 @@ const updateAuth = function (_auth) {
     return Singleton;
 }
 
-
+// should use readAsArrayBuffer for accurate size
+// https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsArrayBuffer
+export const Calculate = (data) => {
+    const rawLength = typeof data == "string" ? byteCount(s)
+        : byteCount(JSON.stringify(data))
+    return Math.ceil(rawLength / 1000)
+}
+const  byteCount = (s)=> {
+    return encodeURI(s).split(/%..|./).length - 1;
+}
 
 export default {Singleton, initiate, updateAuth, firestore,realtime,storage,meta}

@@ -1,4 +1,4 @@
-import { Singleton } from './index.js';
+import { Singleton, Calculate } from './index.js';
 const callback;
 
 const trigger = (data, tag, path) => {
@@ -7,7 +7,7 @@ const trigger = (data, tag, path) => {
         time: Date.now(),
         auth: Singleton.auth.uid || null,
         path: path || null,
-        size: calculate(data) || null,
+        size: Calculate(data) || null,
         meta: tag || null,
     };
     if (Singleton)
@@ -20,15 +20,6 @@ const trigger = (data, tag, path) => {
         if (callback && typeof callback == "function") callback(payload);
         else return payload;
     }
-}
-
-function calculate(data) {
-    const rawLength = typeof data == "string" ? byteCount(s)
-        : byteCount(JSON.stringify(data))
-    return Math.ceil(rawLength / 1000)
-}
-function byteCount(s) {
-    return encodeURI(s).split(/%..|./).length - 1;
 }
 
 const setCallback = (func) => callback = func;
