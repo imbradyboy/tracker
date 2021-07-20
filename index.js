@@ -26,7 +26,6 @@ const initiate = async function (databaseUrl, auth, ping = true) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 return data;
             }, err => {
                 return err;

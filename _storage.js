@@ -8,7 +8,7 @@ const trigger = (data, tag, path) => {
         auth: Singleton.auth.uid || null,
         path: path || null,
         size: Calculate(data) || null,
-        meta: tag || null,
+        meta: typeof tag =="string"? tag: JSON.stringify(tag) || null,
     };
     if (Singleton)
         return await fetch(Singleton.dbUrl + `/tracker.json`, {
