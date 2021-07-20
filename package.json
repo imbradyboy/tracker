@@ -20,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/firebase-me/tracker/issues"
   },
-  "homepage": "https://github.com/firebase-me/tracker#readme"
+  "homepage": "https://github.com/firebase-me/tracker#readme",
+  "private": false
 }
