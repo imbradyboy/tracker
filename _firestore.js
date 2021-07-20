@@ -1,7 +1,7 @@
 import { Singleton, Calculate } from './index.js';
 const callback;
 
-const trigger = (snapshot, tag, path) => {
+const trigger = (snapshot, meta, path) => {
     const docCount = getDocumentCount(snapshot);
     const payload = {
         time: Date.now(),
@@ -9,7 +9,7 @@ const trigger = (snapshot, tag, path) => {
         path: path || snapshot.path || snapshot.ref || null,
         size: docCount.count || null,
         cache: docCount.cache > 0 ? docCount.cache : null,
-        meta: typeof tag == "string" ? tag : JSON.stringify(tag) || null,
+        meta: typeof meta == "string" ? meta : JSON.stringify(meta) || null,
     };
     if (Singleton)
         return await fetch(Singleton.dbUrl + `/tracker.json`, {
@@ -39,4 +39,4 @@ function getDocumentCount(snapshot) {
 }
 }
 const setCallback = (func) => callback = func;
-export default { trigger, callback, setCallback }
+export default { trigger, setCallback }

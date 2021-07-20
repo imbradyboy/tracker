@@ -22,9 +22,29 @@ onAuthStateChanged(user){
 If you are not using the web modules; the only required fields are the user UID and the ID token for authenticating the request.
 you can pass it as the `user` object as such `{uid:"userUID", idToken:"ID token Credential"}`
 
+
+
 There are 3 ways we intend to allow users to utilize this suite:
 1: Pass the snapshot from the request into the appropriate tracker method and it will update to the appropriate realtime DB.
 2: Assign a custom callback function via: `tracker.<service>.callback = myFuntion(payload){}`
 3: If no callback(2) is assigned and the tracker has not been initialized: it will simply return the payload as a JSON object so you can handle it through a console log, custom integration, etc.
+
+
+
+To use the trigger to log each respective database type:
+```javascript
+// Firestore
+tracker.firestore.trigger(snapshot|data, meta, referencePath)
+// Realtime DB
+tracker.realtime.trigger(snapshot|data, meta, referencePath)
+// Storage (not implimented)
+// tracker.storage.trigger(snapshot|data, meta, referencePath)
+// Custom Meta
+tracker.meta.trigger(payloadObject|data, meta, referencePath)
+```
+Each snapshot is evaluated, Firestore as Documents (supports cached tracking)
+Realtime DB is evaluated as Bytes and rounded to the nearest KB
+Meta uses the same as Realtime.
+Each trigger also supports custom path overrides, allowing you to define assign the snapshot path as a unique path independant of their original reference path. This can be used for custom filtering and targeting.
 
 *Storage is not functional at this time, please do not use it as it will most likely throw errors.*
