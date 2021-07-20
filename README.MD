@@ -34,13 +34,13 @@ There are 3 ways we intend to allow users to utilize this suite:
 To use the trigger to log each respective database type:
 ```javascript
 // Firestore
-tracker.firestore.trigger(snapshot|data, meta, referencePath)
+tracker.firestore.trigger(snapshot|data, meta?, customPath?)
 // Realtime DB
-tracker.realtime.trigger(snapshot|data, meta, referencePath)
+tracker.realtime.trigger(snapshot|data, meta?, customPath?)
 // Storage (not implimented)
-// tracker.storage.trigger(snapshot|data, meta, referencePath)
+// tracker.storage.trigger(snapshot|data, meta?, customPath?)
 // Custom Meta
-tracker.meta.trigger(payloadObject|data, meta, referencePath)
+tracker.meta.trigger(payloadObject|data, meta?, customPath?)
 ```
 Each snapshot is evaluated, Firestore as Documents (supports cached tracking)
 Realtime DB is evaluated as Bytes and rounded to the nearest KB
