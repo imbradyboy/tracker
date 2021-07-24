@@ -5,6 +5,7 @@ import {environment} from "../../../environments/environment";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {AngularFireModule} from "@angular/fire";
 import {BUCKET} from "@angular/fire/storage";
+import {authErrorCodes, authErrorsListToken} from "./auth.providers";
 
 
 
@@ -18,6 +19,7 @@ import {BUCKET} from "@angular/fire/storage";
     AngularFirestoreModule.enablePersistence({synchronizeTabs: true}), // allows persistent data
   ],
   providers: [
+    { provide: authErrorsListToken, useValue: authErrorCodes},
     { provide: BUCKET, useValue: 'fire-base-tracker.appspot.com' },
   ]
 })

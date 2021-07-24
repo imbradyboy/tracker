@@ -1,4 +1,4 @@
-<!--login card-->
+<!--register card-->
 <mat-card>
   <!--card heading-->
   <div>
@@ -8,54 +8,75 @@
     </div>
     <mat-card-subtitle class="my-2">Register to view your tracker results</mat-card-subtitle>
   </div> <!--end card heading-->
-  <!--db error-->
-  <div class="col-12 mb-2 error-container d-flex justify-content-center">
-    <!--      <mat-error *ngIf="error" class="d-flex align-items-center text-center">-->
-    <!--        <mat-icon>error</mat-icon>-->
-    <!--        {{error}}-->
-    <!--      </mat-error>-->
-  </div> <!--end db error-->
-  <mat-card-content>
-    <!--login form-->
-    <form>
 
-      <div class="row row-cols-1 align-items-center">
+  <!--db error-->
+  <div class="col-12 error-container d-flex justify-content-center">
+    <mat-error *ngIf="error" class="d-flex align-items-center text-center">
+      <mat-icon>error</mat-icon>
+      {{error}}
+    </mat-error>
+  </div> <!--end db error-->
+
+  <mat-card-content>
+    <!--register form-->
+    <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+
+      <div class="row">
         <!--email section-->
-        <div class="col mb-2">
-          <mat-form-field class="w-100" appearance="standard">
+        <div class="col-12">
+          <mat-form-field class="w-100" appearance="standard" hideRequiredMarker>
             <mat-label>Email</mat-label>
             <input id="email" matInput required autocomplete="on" formControlName="email" autofocus/>
             <mat-icon matSuffix>email</mat-icon>
+            <mat-error>Valid email is required</mat-error>
           </mat-form-field>
         </div> <!--end email section-->
+
         <!--password section-->
-        <div class="col">
-          <mat-form-field class="w-100" appearance="standard">
-            <mat-label>Enter your password</mat-label>
-            <!--              [type]="hide ? 'password' : 'text'"-->
-            <input id="password" matInput required autocomplete="on"
+        <div class="col-12 col-lg-6">
+          <mat-form-field class="w-100" appearance="standard" hideRequiredMarker>
+            <mat-label>Password</mat-label>
+            <input [type]="showPassword ? 'text' : 'password'" id="password" matInput required autocomplete="on"
                    formControlName="password">
-            <!--              <button type="button" mat-icon-button matSuffix (click)="hide = !hide"-->
-            <!--                      [attr.aria-label]="'Hide password'"-->
-            <!--                      [attr.aria-pressed]="hide">-->
-            <!--                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>-->
-            <!--              </button>-->
-            <!--              <mat-error *ngIf="form.get('password')?.hasError('required')">-->
-            <!--                Password is <strong>required</strong>-->
-            <!--              </mat-error>-->
+            <mat-error>
+              Min 8 characters with a letter, number, and a symbol from
+              !@#$%^&*_
+            </mat-error>
+            <mat-hint>Min 8 characters with a letter, number, and a symbol from
+              !@#$%^&*_
+            </mat-hint>
           </mat-form-field>
         </div> <!--end password section-->
-        <!--switch to register-->
-        <div class="col mb-4">
-          <!--login-->
+
+        <!--confirm password-->
+        <div class="col-12 col-lg-6 d-flex justify-content-between align-items-center">
+          <mat-form-field class="w-100" appearance="standard" hideRequiredMarker>
+            <mat-label>Confirm Password</mat-label>
+            <input [type]="showPassword ? 'text' : 'password'" id="confirmPassword" matInput required autocomplete="on"
+                   formControlName="confirmPassword">
+            <mat-error>
+              Passwords don't match
+            </mat-error>
+          </mat-form-field>
+
+          <button type="button" mat-icon-button (click)="showPassword = !showPassword"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="showPassword">
+            <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+        </div> <!--end confirm password-->
+        <div class="col-12 mb-4 mt-lg-4">
+
+          <!--register-->
           <button type="submit" mat-raised-button color="primary" class="w-100">Register</button>
         </div>
 
-        <div id="login-options">
+        <!--switch to login-->
+        <div id="link-options">
           <a mat-button [routerLink]="['/login']">Already have an account? Login</a>
         </div>
 
       </div>
-    </form> <!--end login form-->
+    </form> <!--end register form-->
   </mat-card-content>
-</mat-card> <!--end login card-->
+</mat-card> <!--end register card-->

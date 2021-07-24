@@ -1,13 +1,27 @@
 <nav>
   <mat-toolbar class="justify-content-between">
-    <a routerLink="/" aria-label="Firebase-me logo home button">
+    <a class="d-flex align-items-end" mat-button routerLink="/" aria-label="Firebase-me logo home button">
       <img src="assets/images/brand/firebase_full.png" alt="Firebase-me logo" width="50" height="50"/>
+      <span id="logo-text">Firebase Tracker</span>
     </a>
-    <button mat-flat-button color="primary" aria-label="Login">
-      Join
-    </button>
+    <ng-container *ngIf="auth.isLoggedIn()">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openLogoutDialog()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </ng-container>
   </mat-toolbar>
-      <mat-progress-bar class="w-100" color="accent" mode="indeterminate" hidden></mat-progress-bar>
+
+  {{'' // controlled using loading state}}
+  <ng-container *ngIf="state$ | async as state">
+    <mat-progress-bar class="w-100" color="accent" [mode]="state.mode" [value]="state.value"
+                      *ngIf="state.isVisible"></mat-progress-bar>
+  </ng-container>
 
 </nav>
 

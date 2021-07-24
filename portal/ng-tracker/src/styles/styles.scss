@@ -3,6 +3,8 @@
  */
 @import 'partials/material-design/custom-theme'; // our custom theme
 
+@import 'partials/functions'; // custom SCSS functions
+
 // Include our customized and fixed parts of bootstrap required for this project
 @import 'partials/bootstrap/master';
 

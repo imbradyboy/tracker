@@ -1,0 +1,27 @@
+/**
+ * Custom SCSS functions
+ */
+@import "bootstrap/variables"; // redefined bootstrap variables
+
+/*______________________________________________________________________
+ * RESPONSIVE WIDTHS
+ * ______________________________________________________________________*/
+// creates custom responsive widths
+@each $name, $screensize in $grid-breakpoints {
+  // reset width to initial
+  @media (min-width: $screensize) {
+    .w-#{$name}-initial {
+      width: initial !important;
+    }
+  }
+
+  // start at 50%
+  @for $i from 1 through 10 {
+    // create our width classes
+    @media (min-width: $screensize) {
+      .w-#{$name}-#{$i * 10} {
+        width: 0% + ($i * 10) !important;
+      }
+    }
+  }
+}

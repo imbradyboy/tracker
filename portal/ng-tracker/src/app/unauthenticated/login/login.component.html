@@ -9,49 +9,42 @@
     <mat-card-subtitle class="my-2">Login to your tracker dashboard</mat-card-subtitle>
   </div> <!--end card heading-->
   <!--db error-->
-  <div class="col-12 mb-2 error-container d-flex justify-content-center">
-    <!--      <mat-error *ngIf="error" class="d-flex align-items-center text-center">-->
-    <!--        <mat-icon>error</mat-icon>-->
-    <!--        {{error}}-->
-    <!--      </mat-error>-->
+  <div class="col-12 error-container d-flex justify-content-center">
+    <mat-error *ngIf="error" class="d-flex align-items-center text-center">
+      <mat-icon>error</mat-icon>
+      {{error}}
+    </mat-error>
   </div> <!--end db error-->
   <mat-card-content>
     <!--login form-->
-    <form>
+    <form [formGroup]="form" (ngSubmit)="submit(form.value)">
 
-      <div class="row row-cols-1 align-items-center">
+      <div class="row row-cols-1">
         <!--email section-->
         <div class="col mb-2">
-          <mat-form-field class="w-100" appearance="standard">
+          <mat-form-field class="w-100" appearance="standard" hideRequiredMarker>
             <mat-label>Email</mat-label>
             <input id="email" matInput required autocomplete="on" formControlName="email" autofocus/>
             <mat-icon matSuffix>email</mat-icon>
+            <mat-error>Email is required</mat-error>
           </mat-form-field>
         </div> <!--end email section-->
         <!--password section-->
         <div class="col">
-          <mat-form-field class="w-100" appearance="standard">
-            <mat-label>Enter your password</mat-label>
-            <!--              [type]="hide ? 'password' : 'text'"-->
-            <input id="password" matInput required autocomplete="on"
+          <mat-form-field class="w-100" appearance="standard" hideRequiredMarker>
+            <mat-label>Password</mat-label>
+            <input type="password" id="password" matInput required autocomplete="on"
                    formControlName="password">
-            <!--              <button type="button" mat-icon-button matSuffix (click)="hide = !hide"-->
-            <!--                      [attr.aria-label]="'Hide password'"-->
-            <!--                      [attr.aria-pressed]="hide">-->
-            <!--                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>-->
-            <!--              </button>-->
-            <!--              <mat-error *ngIf="form.get('password')?.hasError('required')">-->
-            <!--                Password is <strong>required</strong>-->
-            <!--              </mat-error>-->
+            <mat-error>Password is required</mat-error>
           </mat-form-field>
         </div> <!--end password section-->
         <!--switch to register-->
-        <div class="col mb-4">
+        <div class="col mb-4 mt-2">
           <!--login-->
           <button type="submit" mat-raised-button color="primary" class="w-100">Login</button>
         </div>
 
-        <div id="login-options" class="col d-flex flex-column align-items-start">
+        <div id="link-options" class="col d-flex flex-column align-items-start">
           <a mat-button [routerLink]="['/forgot-password']">Forgot your password?</a>
           <a mat-button [routerLink]="['/register']">Don't have an account? Create one</a>
         </div>
