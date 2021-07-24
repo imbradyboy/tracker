@@ -1,20 +1,16 @@
 <nav>
-  <mat-toolbar class="d-flex justify-content-between">
-    <button mat-icon-button aria-label="Firebase-me logo home button">
-      Logo here
-    </button>
-    <button mat-flat-button aria-label="Login">
-      Login
+  <mat-toolbar class="justify-content-between">
+    <a routerLink="/" aria-label="Firebase-me logo home button">
+      <img src="assets/images/brand/firebase_full.png" alt="Firebase-me logo" width="50" height="50"/>
+    </a>
+    <button mat-flat-button color="primary" aria-label="Login">
+      Join
     </button>
   </mat-toolbar>
+      <mat-progress-bar class="w-100" color="accent" mode="indeterminate" hidden></mat-progress-bar>
+
 </nav>
 
-<div class="row row-cols-2 gx-0">
-  <div class="col-7 p-0">
-    Pretty picture will go here
-  </div>
-  <div class="col-5 p-0 auth-form-container">
-    Login Form will go here
-  </div>
-</div>
 <router-outlet></router-outlet>
+
+<!--d-flex flex-column align-items-start justify-content-center-->

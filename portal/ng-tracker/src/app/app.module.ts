@@ -7,10 +7,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AuthModule} from "./core/auth/auth.module";
 import {MaterialModule} from "./core/material/material.module";
 import {ConnectionServiceModule} from "ng-connection-service";
+import { BgImageDirective } from './core/utilities/directives/bg-image.directive';
+import { UnauthParentComponent } from './unauthenticated/unauth-parent/unauth-parent.component';
+import { AboutComponent } from './static-pages/about/about.component';
+import { LoginComponent } from './unauthenticated/login/login.component';
+import { RegisterComponent } from './unauthenticated/register/register.component';
+import { ForgotPasswordComponent } from './unauthenticated/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BgImageDirective,
+    UnauthParentComponent,
+    AboutComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,11 @@
-.row {
-  @media screen and (max-width: 599px) {
-    height: calc(100vh - 56px);
-  }
-  @media screen and (min-width: 600px) {
-    height: calc(100vh - 64px);
-  }
+$progress-height: 3px;
+
+// styles for the progress bar stuck to the bottom of the toolbar
+mat-toolbar {
+  padding-bottom: $progress-height;
 }
 
-.auth-form-container {
-  display: grid;
-  place-items: center;
+mat-progress-bar {
+  height: $progress-height;
+  margin-top: -$progress-height;
 }
-

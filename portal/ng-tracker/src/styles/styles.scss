@@ -5,3 +5,14 @@
 
 // Include our customized and fixed parts of bootstrap required for this project
 @import 'partials/bootstrap/master';
+
+// firebase error styles
+div.error-container {
+  height: 20px;
+
+  // makes error icon smaller
+  mat-icon {
+    font-size: 110%;
+    height: initial;
+  }
+}
