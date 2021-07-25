@@ -4,6 +4,8 @@ import {authErrorsListToken} from "../../core/auth/auth.providers";
 import {AuthService} from "../../core/auth/auth.service";
 import {Store} from "@ngxs/store";
 import {SetLoading, StopLoading} from "../../core/state/loader.actions";
+import {Router} from "@angular/router";
+import {PopupService} from "../../core/utilities/services/popup.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,7 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
   error: string | null = null;
 
   constructor(@Inject(authErrorsListToken) private authErrorCodes: Map<string, string>, private formBuilder: FormBuilder,
-              private auth: AuthService, private store: Store) {
+              private auth: AuthService, private store: Store, private router: Router, private popup: PopupService) {
   }
 
   ngOnInit(): void {
@@ -51,11 +53,11 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.form.valid) {
       try {
         // start loading
-        this.store.dispatch([
-          new SetLoading({mode: 'indeterminate', value: undefined, isVisible: true})
-        ]);
-
+        this.store.dispatch([new SetLoading({mode: 'indeterminate', value: undefined, isVisible: true})]);
         await this.auth.sendResetPasswordEmail(form.email);
+
+        this.popup.openSnackBar('Password reset email sent');
+        await this.router.navigate(['/login']); // navigate back to login page
       } catch (err) {
         if (this.authErrorCodes.has(err.code)) {
           this.error = err.code;
@@ -72,5 +74,4 @@ export class ForgotPasswordComponent implements OnInit {
       }
     }
   }
-
 }

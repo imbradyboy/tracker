@@ -4,7 +4,6 @@ import {authErrorsListToken} from "../../core/auth/auth.providers";
 import {AuthService} from "../../core/auth/auth.service";
 import {Store} from "@ngxs/store";
 import {SetLoading, StopLoading} from "../../core/state/loader.actions";
-import {RxwebValidators} from "@rxweb/reactive-form-validators";
 
 @Component({
   selector: 'app-login',
@@ -74,5 +73,4 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-
 }

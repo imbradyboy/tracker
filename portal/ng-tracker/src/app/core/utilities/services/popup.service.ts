@@ -1,3 +1,8 @@
+/**
+ * Wrapper service for material snackbar to streamline the process of instantiating a snackbar
+ * This service will eventually be expanded to include dialogs as well
+ */
+
 import { Injectable } from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -18,7 +23,6 @@ export class PopupService {
       horizontalPosition: 'center',
       verticalPosition: 'top',
       duration: 5000,
-      // panelClass: ['text-light', 'bg-primary']
     });
   }
 }
