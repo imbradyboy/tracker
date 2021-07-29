@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {authErrorsListToken} from "../../core/auth/auth.providers";
 import {AuthService} from "../../core/auth/auth.service";
 import {Store} from "@ngxs/store";
-import {SetLoading, StopLoading} from "../../core/state/loader.actions";
+import {ResetLoading, SetLoading} from "../../core/state/loader.actions";
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   ngOnDestroy(): void {
     // stop loading on complete
     this.store.dispatch([
-      new StopLoading()
+      ResetLoading
     ]);
   }
 
@@ -52,9 +52,8 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       try {
         // start loading
-        this.store.dispatch([
-          new SetLoading({mode: 'indeterminate', value: undefined, isVisible: true})
-        ]);
+        this.store.dispatch([new SetLoading('indeterminate')]);
+
 
         await this.auth.signIn(form.email, form.password);
       } catch (err) {
@@ -68,7 +67,7 @@ export class LoginComponent implements OnInit {
 
         // stop loading on fail
         this.store.dispatch([
-          new StopLoading()
+          new ResetLoading()
         ]);
       }
     }

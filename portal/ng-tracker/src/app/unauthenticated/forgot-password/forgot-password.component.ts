@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {authErrorsListToken} from "../../core/auth/auth.providers";
 import {AuthService} from "../../core/auth/auth.service";
 import {Store} from "@ngxs/store";
-import {SetLoading, StopLoading} from "../../core/state/loader.actions";
+import {ResetLoading, SetLoading} from "../../core/state/loader.actions";
 import {Router} from "@angular/router";
 import {PopupService} from "../../core/utilities/services/popup.service";
 
@@ -28,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnDestroy(): void {
     // stop loading on complete
     this.store.dispatch([
-      new StopLoading()
+      new ResetLoading()
     ]);
   }
 
@@ -53,7 +53,7 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.form.valid) {
       try {
         // start loading
-        this.store.dispatch([new SetLoading({mode: 'indeterminate', value: undefined, isVisible: true})]);
+        this.store.dispatch([new SetLoading('indeterminate')]);
         await this.auth.sendResetPasswordEmail(form.email);
 
         this.popup.openSnackBar('Password reset email sent');
@@ -69,7 +69,7 @@ export class ForgotPasswordComponent implements OnInit {
 
         // stop loading on fail
         this.store.dispatch([
-          new StopLoading()
+          new ResetLoading()
         ]);
       }
     }

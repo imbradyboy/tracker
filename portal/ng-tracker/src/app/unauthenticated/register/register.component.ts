@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RxwebValidators} from "@rxweb/reactive-form-validators";
 import {authErrorsListToken} from "../../core/auth/auth.providers";
 import {Store} from "@ngxs/store";
-import {SetLoading, StopLoading} from "../../core/state/loader.actions";
+import {ResetLoading, SetLoading} from "../../core/state/loader.actions";
 import {AuthService} from "../../core/auth/auth.service";
 
 @Component({
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // stop loading on complete
     this.store.dispatch([
-      new StopLoading()
+      new ResetLoading()
     ]);
   }
 
@@ -56,9 +56,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
       try {
         // start loading
-        this.store.dispatch([
-          new SetLoading({mode: 'indeterminate', value: undefined, isVisible: true})
-        ]);
+        this.store.dispatch([new SetLoading('indeterminate')]);
+
 
         await this.auth.signUp(form.email, form.password);
       } catch (err) {
@@ -72,7 +71,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
         // stop loading on fail
         this.store.dispatch([
-          new StopLoading()
+          new ResetLoading()
         ]);
       }
     }

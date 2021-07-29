@@ -4,19 +4,19 @@
  */
 
 import {Action, State, StateContext} from '@ngxs/store';
-import {SetLoading, StopLoading} from './loader.actions';
+import {ResetLoading, SetLoading} from './loader.actions';
 import {ProgressBarMode} from "@angular/material/progress-bar";
 
 export interface LoadingStateModel {
   mode: ProgressBarMode;
-  value?: number;
+  value: number;
   isVisible: boolean;
 }
 
 const defaults: LoadingStateModel = {
   mode: 'determinate',
   value: 100,
-  isVisible: false
+  isVisible: false,
 };
 
 @State<LoadingStateModel>({
@@ -26,16 +26,13 @@ const defaults: LoadingStateModel = {
 
 export class LoadingState {
   @Action(SetLoading)
-  setLoading({patchState}: StateContext<LoadingStateModel>, {payload}: SetLoading): void {
-
-    patchState({
-      ...payload
-    });
+  setLoading({setState}: StateContext<LoadingStateModel>, payload: SetLoading): void {
+    setState({...payload});
   }
 
-  @Action(StopLoading)
-  reset({ setState }: StateContext<LoadingStateModel>) {
-    setState( { ...defaults });
+  @Action(ResetLoading)
+  resetLoading({setState}: StateContext<LoadingStateModel>): void {
+    setState({...defaults});
   }
 }
 
