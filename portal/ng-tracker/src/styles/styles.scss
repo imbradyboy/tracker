@@ -8,6 +8,20 @@
 // Include our customized and fixed parts of bootstrap required for this project
 @import 'partials/bootstrap/master';
 
+body {
+  background-color: map-get($theme-colors, 'fbm-dark');
+  color: map-get($theme-colors, 'white');
+}
+
+.ngx-charts {
+  fill: map-get($theme-colors, 'white');
+
+  .gridline-path {
+    stroke: darken(map-get($theme-colors, 'divider'), 40%) !important;
+  }
+
+}
+
 // firebase error styles
 div.error-container {
   height: 20px;
@@ -16,5 +30,17 @@ div.error-container {
   mat-icon {
     font-size: 110%;
     height: initial;
+  }
+}
+
+// TEST STYLES
+.full-screen {
+  max-width: none !important;
+  height: 100vh !important;
+  width: 100vw !important;
+
+  mat-dialog-container {
+    padding: 0;
+    background-color: map-get($theme-colors, 'fbm-dark');
   }
 }

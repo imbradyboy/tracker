@@ -9,6 +9,10 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 const material = [
@@ -19,9 +23,13 @@ const material = [
   MatCardModule,
   MatIconModule,
   MatProgressBarModule,
+  MatProgressSpinnerModule,
   MatMenuModule,
   MatDialogModule,
-  MatDividerModule
+  MatDividerModule,
+  MatTabsModule,
+  MatTooltipModule,
+  MatExpansionModule,
 ];
 
 

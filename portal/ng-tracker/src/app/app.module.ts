@@ -22,6 +22,9 @@ import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 import {environment} from "../environments/environment";
 import { LogoutDialogComponent } from './account/logout-dialog/logout-dialog.component';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
+import { WriteProjectComponent } from './account/dashboard/write-project/write-project.component';
+import { WriteProjectDialogComponent } from './account/dashboard/write-project/write-project-dialog/write-project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { LogoutDialogComponent } from './account/logout-dialog/logout-dialog.com
     RegisterComponent,
     ForgotPasswordComponent,
     DashboardComponent,
-    LogoutDialogComponent
+    LogoutDialogComponent,
+    WriteProjectDialogComponent,
+    WriteProjectComponent,
+    WriteProjectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +56,7 @@ import { LogoutDialogComponent } from './account/logout-dialog/logout-dialog.com
     ], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

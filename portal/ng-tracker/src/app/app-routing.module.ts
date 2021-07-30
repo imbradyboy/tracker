@@ -58,7 +58,7 @@ const routes: Routes =
       path: 'about',
       component: AboutComponent
     },
-    {path: '**', redirectTo: ''},  // Wildcard route for a 404 error
+    {path: '**', redirectTo: '', pathMatch: 'full'},  // Wildcard route for a 404 error
   ];
 
 @NgModule({
