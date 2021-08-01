@@ -5,6 +5,7 @@ import {AccountService} from "../account.service";
 import {map, share, tap} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {WriteProjectDialogComponent} from "./write-project/write-project-dialog/write-project-dialog.component";
+import {AuthBaseService} from "../../core/auth/auth-base.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -23,30 +24,23 @@ export class DashboardComponent implements OnInit {
     {name: "Fridge", value: 20000}
   ];
 
-  constructor(private route: ActivatedRoute, private accService: AccountService, private dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private accService: AccountService, private dialog: MatDialog, public auth: AuthBaseService) {
   }
 
   async ngOnInit(): Promise<void> {
     const uid = this.route.snapshot.paramMap.get('uid') as string;
-
     await this.getAccountDoc(uid);
   }
 
   async getAccountDoc(uid: string): Promise<void> {
-    console.log(uid);
     // use tap so we can perform side effects
     this.accountDoc$ = this.accService.getAccountDoc(uid).snapshotChanges().pipe(map(((doc, index) => {
-      const data = doc.payload.data;
+      const data = doc.payload.data() as object;
       const id = doc.payload.id;
       const exists = doc.payload.exists;
 
-      return {exists, id, ...data, index};
-    })), tap((doc: any) => {
-      if (!doc.exists && doc.index === 0) {
-        this.openDialog();
-      }
-    }))
-
+      return {exists, id, ...data};
+    })))
   }
 
   openDialog(): void {

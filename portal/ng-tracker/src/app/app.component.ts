@@ -3,7 +3,7 @@ import {ConnectionService} from "ng-connection-service";
 import {Observable, Subscription} from "rxjs";
 import {PopupService} from "./core/utilities/services/popup.service";
 import {Select} from "@ngxs/store";
-import {LoadingStateModel} from "./core/state/loading.state";
+import {LoadingStateModel} from "./core/state/loader/loading.state";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "./core/auth/auth.service";
 import {LogoutDialogComponent} from "./account/logout-dialog/logout-dialog.component";

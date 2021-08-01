@@ -9,6 +9,7 @@
 @import 'partials/bootstrap/master';
 
 body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: map-get($theme-colors, 'fbm-dark');
   color: map-get($theme-colors, 'white');
 }

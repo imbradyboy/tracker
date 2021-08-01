@@ -13,6 +13,8 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
 
 
 const material = [
@@ -30,6 +32,9 @@ const material = [
   MatTabsModule,
   MatTooltipModule,
   MatExpansionModule,
+  MatSelectModule,
+  MatOptionModule,
+  MatDividerModule
 ];
 
 

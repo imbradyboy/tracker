@@ -1,10 +1,21 @@
 <nav>
   <mat-toolbar class="justify-content-between">
     <a class="d-flex align-items-end ps-0" mat-button routerLink="/" aria-label="Firebase-me logo home button">
-      <img src="assets/images/brand/firebase_full.png" alt="Firebase-me logo" width="50" height="50"/>
-      <span id="logo-text">Firebase Tracker</span>
+      <img src="assets/images/brand/firebase_full.png" alt="Firebase-me logo" width="40" height="40"/>
+      <span id="logo-text">Firetrace</span>
     </a>
     <ng-container *ngIf="auth.isLoggedIn()">
+
+<!--      <mat-form-field appearance="legacy">-->
+<!--        <mat-label>Choose an option</mat-label>-->
+<!--        <mat-select>-->
+<!--          <mat-option value="option1">Create new project</mat-option>-->
+<!--          <mat-option value="option1">Option 1</mat-option>-->
+<!--          <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>-->
+<!--          <mat-option value="option3">Option 3</mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>person</mat-icon>
       </button>

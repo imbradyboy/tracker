@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RxwebValidators} from "@rxweb/reactive-form-validators";
 import {authErrorsListToken} from "../../core/auth/auth.providers";
 import {Store} from "@ngxs/store";
-import {ResetLoading, SetLoading} from "../../core/state/loader.actions";
+import {ResetLoading, SetLoading} from "../../core/state/loader/loader.actions";
 import {AuthService} from "../../core/auth/auth.service";
 
 @Component({

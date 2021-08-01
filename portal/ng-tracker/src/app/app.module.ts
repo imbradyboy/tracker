@@ -17,7 +17,7 @@ import {DashboardComponent} from './account/dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RxReactiveFormsModule} from "@rxweb/reactive-form-validators";
 import {NgxsModule} from "@ngxs/store";
-import {LoadingState} from "./core/state/loading.state";
+import {LoadingState} from "./core/state/loader/loading.state";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 import {environment} from "../environments/environment";
@@ -25,6 +25,8 @@ import { LogoutDialogComponent } from './account/logout-dialog/logout-dialog.com
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import { WriteProjectComponent } from './account/dashboard/write-project/write-project.component';
 import { WriteProjectDialogComponent } from './account/dashboard/write-project/write-project-dialog/write-project-dialog.component';
+import { ProjectComponent } from './account/project/project.component';
+import { ProjectCardComponent } from './account/dashboard/project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { WriteProjectDialogComponent } from './account/dashboard/write-project/w
     LogoutDialogComponent,
     WriteProjectDialogComponent,
     WriteProjectComponent,
-    WriteProjectDialogComponent
+    WriteProjectDialogComponent,
+    ProjectComponent,
+    ProjectCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+// constraints on height of card
+mat-card {
+  height: 200px;
+  max-height: 200px;
+  cursor: pointer; // to show that the entire card is clickable
+
+  // if text overflows hide it
+  mat-card-header {
+    overflow: hidden;
+
+    // adjust weight of card title
+    .mat-card-title {
+      font-weight: 400;
+    }
+  }
+
+  // adjust weight of link text
+  mat-card-content a {
+    font-weight: 350;
+  }
+}
+
+// styles for the bottom orange line on the card
+#btm-line {
+  height: 4px;
+  width: 100%;
+  border-radius: 0 0 4px 4px
+}

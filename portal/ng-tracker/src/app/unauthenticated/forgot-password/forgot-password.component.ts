@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {authErrorsListToken} from "../../core/auth/auth.providers";
 import {AuthService} from "../../core/auth/auth.service";
 import {Store} from "@ngxs/store";
-import {ResetLoading, SetLoading} from "../../core/state/loader.actions";
+import {ResetLoading, SetLoading} from "../../core/state/loader/loader.actions";
 import {Router} from "@angular/router";
 import {PopupService} from "../../core/utilities/services/popup.service";
 

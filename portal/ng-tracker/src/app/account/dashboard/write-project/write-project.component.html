@@ -3,19 +3,18 @@
   <!--card heading-->
   <div>
     <mat-card-title class="ms-1 mb-0">Add a new project</mat-card-title>
-    <mat-card-subtitle class="my-2">Add your project to track your Firebase logs</mat-card-subtitle>
+    <mat-card-subtitle class="my-2">Add your project to better track your Firebase project</mat-card-subtitle>
   </div> <!--end card heading-->
   <!--db error-->
   <div class="col-12 error-container d-flex justify-content-center">
-    <!--    *ngIf="error"-->
-    <mat-error class="d-flex align-items-center text-center">
+    <mat-error *ngIf="error" class="d-flex align-items-center text-center">
       <mat-icon>error</mat-icon>
-      <!--      {{error}}-->
+            {{error}}
     </mat-error>
   </div> <!--end db error-->
   <mat-card-content>
     <!--login form-->
-    <form>
+    <form [formGroup]="form" (ngSubmit)="submit(form.value)">
 
       <div class="row row-cols-1">
         <!--email section-->
@@ -34,7 +33,7 @@
             <input type="url" id="dbURL" matInput required autocomplete="on"
                    formControlName="dbURL">
             <mat-hint>URL to the DB you're using to log your results</mat-hint>
-            <mat-error>Password is required</mat-error>
+            <mat-error>Properly formatted URL is required</mat-error>
           </mat-form-field>
         </div> <!--end password section-->
         <!--switch to register-->
