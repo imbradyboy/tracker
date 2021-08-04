@@ -1,15 +1,15 @@
 <!--login card-->
-<mat-card class="w-md-40">
+<mat-card>
   <!--card heading-->
-  <div>
-    <mat-card-title class="ms-1 mb-0">Add a new project</mat-card-title>
-    <mat-card-subtitle class="my-2">Add your project to better track your Firebase project</mat-card-subtitle>
+  <div class="mat-display-1 mb-3">
+    <img src='assets/images/brand/animated_slide_fast.gif' alt='Firebase-Me animated logo' width="50" height="50">
+    Add new project
   </div> <!--end card heading-->
   <!--db error-->
   <div class="col-12 error-container d-flex justify-content-center">
     <mat-error *ngIf="error" class="d-flex align-items-center text-center">
       <mat-icon>error</mat-icon>
-            {{error}}
+      {{error}}
     </mat-error>
   </div> <!--end db error-->
   <mat-card-content>
@@ -22,7 +22,7 @@
           <mat-form-field class="w-100" appearance="standard" hideRequiredMarker>
             <mat-label>Project Nickname</mat-label>
             <input id="nickname" matInput required autocomplete="on" formControlName="nickname" autofocus/>
-            <mat-hint>A short name to easily identify your project</mat-hint>
+            <mat-hint>We recommend the same name as your Firebase project</mat-hint>
             <mat-error>Nickname is required</mat-error>
           </mat-form-field>
         </div> <!--end email section-->

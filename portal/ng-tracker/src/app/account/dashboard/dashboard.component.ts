@@ -4,8 +4,10 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {AccountService} from "../account.service";
 import {map, share, tap} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
-import {WriteProjectDialogComponent} from "./write-project/write-project-dialog/write-project-dialog.component";
+import {WriteProjectDialogComponent} from "../write-project/write-project-dialog/write-project-dialog.component";
 import {AuthBaseService} from "../../core/auth/auth-base.service";
+import {Store} from "@ngxs/store";
+import {OpenWriteProjectDialog} from "../../core/state/projects/projects.actions";
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +26,7 @@ export class DashboardComponent implements OnInit {
     {name: "Fridge", value: 20000}
   ];
 
-  constructor(private route: ActivatedRoute, private accService: AccountService, private dialog: MatDialog, public auth: AuthBaseService) {
+  constructor(private route: ActivatedRoute, private accService: AccountService, private store: Store, public auth: AuthBaseService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -43,11 +45,7 @@ export class DashboardComponent implements OnInit {
     })))
   }
 
-  openDialog(): void {
-
-    this.dialog.open(WriteProjectDialogComponent, {
-      panelClass: ['full-screen', 'animate__animated', 'animate__slideInRight', 'animate__faster']
-    })
-
+  openWriteProjectDialog() {
+    this.store.dispatch([new OpenWriteProjectDialog]);
   }
 }

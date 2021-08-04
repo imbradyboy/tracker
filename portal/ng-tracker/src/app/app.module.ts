@@ -23,10 +23,12 @@ import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 import {environment} from "../environments/environment";
 import { LogoutDialogComponent } from './account/logout-dialog/logout-dialog.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
-import { WriteProjectComponent } from './account/dashboard/write-project/write-project.component';
-import { WriteProjectDialogComponent } from './account/dashboard/write-project/write-project-dialog/write-project-dialog.component';
+import { WriteProjectComponent } from './account/write-project/write-project.component';
+import { WriteProjectDialogComponent } from './account/write-project/write-project-dialog/write-project-dialog.component';
 import { ProjectComponent } from './account/project/project.component';
 import { ProjectCardComponent } from './account/dashboard/project-card/project-card.component';
+import {ProjectsState} from "./core/state/projects/projects.state";
+import { LoadingSpinnerComponent } from './core/utilities/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { ProjectCardComponent } from './account/dashboard/project-card/project-c
     WriteProjectComponent,
     WriteProjectDialogComponent,
     ProjectComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { ProjectCardComponent } from './account/dashboard/project-card/project-c
     ReactiveFormsModule,
     RxReactiveFormsModule, // RxWeb Reactive forms validators
     NgxsModule.forRoot([ // ngxs
-      LoadingState
+      LoadingState,
+      ProjectsState,
     ], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),

@@ -5,7 +5,7 @@
   <h1 class="mat-display-1 d-flex align-items-center mb-3 ps-3">
     <ng-container *ngIf="acc.exists">Current Projects</ng-container>
     <ng-container *ngIf="!acc.exists">Add a Project</ng-container>
-    <button mat-mini-fab class="ms-3" matTooltip="Add new project">
+    <button mat-mini-fab class="ms-3" matTooltip="Add new project" (click)="openWriteProjectDialog()">
       <mat-icon>add</mat-icon>
     </button>
   </h1>
@@ -30,7 +30,9 @@
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <button mat-flat-button color="accent" class="w-xxs-100 w-md-initial mat-card-header-text">Create Project
+        <button mat-flat-button color="accent" class="w-xxs-100 w-md-initial mat-card-header-text"
+                (click)="openWriteProjectDialog()">
+          Create Project
         </button>
       </mat-card-content>
     </mat-card>
@@ -39,7 +41,5 @@
 
 <!--loading page template-->
 <ng-template #loading>
-  <div style="display: grid; place-items: center; height: 100%">
-    <mat-spinner color="accent"></mat-spinner>
-  </div>
+  <app-loading-spinner></app-loading-spinner>
 </ng-template>

@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RxwebValidators} from "@rxweb/reactive-form-validators";
-import {AccountService} from "../../account.service";
-import {ResetLoading, SetLoading} from "../../../core/state/loader/loader.actions";
-import {authErrorsListToken} from "../../../core/auth/auth.providers";
+import {AccountService} from "../account.service";
+import {ResetLoading, SetLoading} from "../../core/state/loader/loader.actions";
+import {authErrorsListToken} from "../../core/auth/auth.providers";
 
 @Component({
   selector: 'app-write-project',
@@ -25,7 +25,10 @@ export class WriteProjectComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      nickname: ['', Validators.required],
+      nickname: ['', [
+        Validators.required,
+        Validators.maxLength(30)
+      ]],
       dbURL: this.formBuilder.control('', RxwebValidators.url()),
     });
 
