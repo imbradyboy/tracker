@@ -8,12 +8,14 @@ import {ForgotPasswordComponent} from "./unauthenticated/forgot-password/forgot-
 import {DashboardComponent} from "./account/dashboard/dashboard.component";
 import {canActivate} from "@angular/fire/auth-guard";
 import {map} from "rxjs/operators";
+import {ProjectComponent} from "./account/project/project.component";
+import {AccountComponent} from "./account/account.component";
 
 //region ROUTEGUARDS
 /**
  * Allow only unauthenticated users
  */
-const redirectLoggedInToProfile = () => map((user: any) => user ? [`${user.uid}/console`] : true)
+const redirectLoggedInToConsole = () => map((user: any) => user ? [`account/${user.uid}`] : true)
 
 /**
  * Only allow this user to access this page
@@ -26,14 +28,29 @@ const allowOnlySelf = (next: any) => map((user: any) => (!!user && next.params.u
 const routes: Routes =
   [
     {
-      path: ':uid/console',
-      component: DashboardComponent,
-      ...canActivate(allowOnlySelf)
+      path: 'account/:uid',
+      component: AccountComponent,
+      ...canActivate(allowOnlySelf),
+      children: [
+        {
+          path: '',
+          redirectTo: 'console',
+          pathMatch: 'full'
+        },
+        {
+          path: 'console',
+          component: DashboardComponent,
+        },
+        {
+          path: 'projects/:projectId',
+          component: ProjectComponent,
+        },
+      ]
     },
     {
       path: '',
       component: UnauthParentComponent,
-      ...canActivate(redirectLoggedInToProfile),
+      ...canActivate(redirectLoggedInToConsole),
       children: [
         {
           path: '',

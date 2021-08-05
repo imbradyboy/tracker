@@ -1,28 +1,28 @@
-<section id="bg-image" class="py-4 p-md-4" *ngIf="accountDoc$ | async as acc; else loading"
+<section id="bg-image" class="py-4 p-md-4" *ngIf="state$ | async as acc; else loading"
          appBgImage="assets/images/brand/Firebaseme_splash2.png">
 
   {{'' // change header depending on if user doc exists}}
   <h1 class="mat-display-1 d-flex align-items-center mb-3 ps-3">
-    <ng-container *ngIf="acc.exists">Current Projects</ng-container>
-    <ng-container *ngIf="!acc.exists">Add a Project</ng-container>
+    <ng-container *ngIf="acc">Current Projects</ng-container>
+    <ng-container *ngIf="!acc">Add a Project</ng-container>
     <button mat-mini-fab class="ms-3" matTooltip="Add new project" (click)="openWriteProjectDialog()">
       <mat-icon>add</mat-icon>
     </button>
   </h1>
 
   {{'' // if user doc exists}}
-  <ng-container *ngIf="acc.exists">
+  <ng-container *ngIf="acc">
     <div class="row row-cols-md-4 row-cols-xl-5 m-0">
-      <ng-container *ngFor="let pro of acc.projects">
+      <ng-container *ngFor="let pro of acc.projects; let i = index">
         <div class="col">
-          <app-project-card [project]="pro"></app-project-card>
+          <app-project-card [project]="pro" [index]="i"></app-project-card>
         </div>
       </ng-container>
     </div>
   </ng-container>
 
   {{'' // if user doc doesn't exist}}
-  <ng-container *ngIf="!acc.exists">
+  <ng-container *ngIf="!acc">
     <mat-card id="no-projects" class="no-bg-md">
       <mat-card-header>
         <mat-card-title>Welcome to Firetrace</mat-card-title>

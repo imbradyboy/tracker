@@ -1,9 +1,9 @@
-<!--<div class="p-md-4" *ngIf="accountDoc$ | async as acc; else loading">-->
-<!--  <section *ngIf="acc.exists">-->
+<ng-container class="p-md-4" *ngIf="state$ | async as pro; else loading">
+  <section>
 
-<!--    <h2>{{acc.projects[0].nickname}}-->
+    <h2>{{pro.nickname}}
 <!--      <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>-->
-<!--    </h2>-->
+    </h2>
 
 <!--    <mat-form-field appearance="legacy">-->
 <!--      <mat-label>Select Project</mat-label>-->
@@ -29,73 +29,66 @@
 <!--        <span>Delete Project</span>-->
 <!--      </button>-->
 <!--    </mat-menu>-->
-<!--    {{'' // make these load asynchronously}}-->
-<!--    <mat-tab-group animationDuration="0ms">-->
-<!--      <mat-tab>-->
-<!--        <ng-template mat-tab-label>-->
-<!--          <label><img src="assets/images/firebase/icons/firestore-light.png"-->
-<!--                      alt="Firestore logo" height="20" width="20"/> Firestore-->
-<!--          </label>-->
-<!--        </ng-template>-->
-<!--        Firestore-->
-<!--        <ngx-charts-bar-horizontal-->
-<!--          [results]="saleData"-->
-<!--          [xAxisLabel]="'Read Volume'"-->
-<!--          [yAxisLabel]="'Read Count'"-->
-<!--          [showXAxisLabel]="true"-->
-<!--          [showYAxisLabel]="true"-->
-<!--          [yAxis]="true"-->
-<!--          [xAxis]="true"-->
-<!--          [showGridLines]="true"-->
-<!--          [gradient]="true"-->
-<!--          scheme="fire">-->
-<!--        </ngx-charts-bar-horizontal>-->
-<!--      </mat-tab>-->
-<!--      <mat-tab>-->
-<!--        <ng-template mat-tab-label>-->
-<!--          <label><img src="assets/images/firebase/icons/RTDB-light.png" alt="Firestore logo" height="20" width="20"/>-->
-<!--            Realtime DB-->
-<!--          </label>-->
-<!--        </ng-template>-->
-<!--        Firestore-->
-<!--      </mat-tab>-->
-<!--      <mat-tab disabled>-->
-<!--        <ng-template mat-tab-label>-->
-<!--          <label matTooltip="Storage coming soon" matTooltipPosition="after"><img-->
-<!--            src="assets/images/firebase/icons/storage-light.png" alt="Firestore logo" height="20" width="20"/>-->
-<!--            Storage-->
-<!--          </label>-->
-<!--        </ng-template>-->
-<!--      </mat-tab>-->
-<!--    </mat-tab-group>-->
+    {{'' // make these load asynchronously}}
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <label><img src="assets/images/firebase/icons/firestore-light.png"
+                      alt="Firestore logo" height="20" width="20"/> Firestore
+          </label>
+        </ng-template>
+        Firestore
+        <ngx-charts-bar-horizontal
+          [results]="saleData"
+          [xAxisLabel]="'Read Volume'"
+          [yAxisLabel]="'Read Count'"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [yAxis]="true"
+          [xAxis]="true"
+          [showGridLines]="true"
+          [gradient]="true"
+          scheme="fire">
+        </ngx-charts-bar-horizontal>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <label><img src="assets/images/firebase/icons/RTDB-light.png" alt="Firestore logo" height="20" width="20"/>
+            Realtime DB
+          </label>
+        </ng-template>
+        Firestore
+      </mat-tab>
+      <mat-tab disabled>
+        <ng-template mat-tab-label>
+          <label matTooltip="Storage coming soon" matTooltipPosition="after"><img
+            src="assets/images/firebase/icons/storage-light.png" alt="Firestore logo" height="20" width="20"/>
+            Storage
+          </label>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
 
-<!--    <mat-accordion>-->
-<!--      <mat-expansion-panel class="bg-black">-->
-<!--        <mat-expansion-panel-header>-->
-<!--          <mat-panel-title>-->
-<!--            Logs-->
-<!--          </mat-panel-title>-->
-<!--          <mat-panel-description>-->
-<!--          </mat-panel-description>-->
-<!--        </mat-expansion-panel-header>-->
-<!--        <p>Show log data here</p>-->
-<!--      </mat-expansion-panel>-->
-<!--    </mat-accordion>-->
+    <mat-accordion>
+      <mat-expansion-panel class="bg-black">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Logs
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Show log data here</p>
+      </mat-expansion-panel>
+    </mat-accordion>
 
-<!--  </section>-->
+  </section>
 
-<!--  <div *ngIf="!acc.exists">-->
-<!--    <h1>You need to create a project</h1>-->
-<!--    <button mat-button (click)="openDialog()">Create A Project</button>-->
-<!--  </div>-->
-<!--</div>-->
+</ng-container>
 
-<!--&lt;!&ndash;loading page template&ndash;&gt;-->
-<!--<ng-template #loading>-->
-<!--  <div style="display: grid; place-items: center; height: 100%">-->
-<!--    <mat-spinner color="accent"></mat-spinner>-->
-<!--  </div>-->
-<!--</ng-template>-->
+<ng-template #loading>
+  LOOKS LIKE THAT PROJECT DOESNT EXIST
+</ng-template>
 
 
 

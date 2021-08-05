@@ -4,6 +4,7 @@ import {RxwebValidators} from "@rxweb/reactive-form-validators";
 import {AccountService} from "../account.service";
 import {ResetLoading, SetLoading} from "../../core/state/loader/loader.actions";
 import {authErrorsListToken} from "../../core/auth/auth.providers";
+import {Store} from "@ngxs/store";
 
 @Component({
   selector: 'app-write-project',
@@ -16,7 +17,8 @@ export class WriteProjectComponent implements OnInit {
   error: string | null = null;
   @Output() isComplete: EventEmitter<boolean> = new EventEmitter(); // to close dialog on complete
 
-  constructor(@Inject(authErrorsListToken) private authErrorCodes: Map<string, string>, private formBuilder: FormBuilder, private accService: AccountService) {
+  constructor(@Inject(authErrorsListToken) private authErrorCodes: Map<string, string>, private formBuilder: FormBuilder, private accService: AccountService,
+              private store: Store) {
   }
 
   ngOnInit(): void {

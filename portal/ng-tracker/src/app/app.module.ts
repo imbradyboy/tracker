@@ -27,8 +27,10 @@ import { WriteProjectComponent } from './account/write-project/write-project.com
 import { WriteProjectDialogComponent } from './account/write-project/write-project-dialog/write-project-dialog.component';
 import { ProjectComponent } from './account/project/project.component';
 import { ProjectCardComponent } from './account/dashboard/project-card/project-card.component';
-import {ProjectsState} from "./core/state/projects/projects.state";
+import {AccountState} from "./core/state/projects/account.state";
 import { LoadingSpinnerComponent } from './core/utilities/components/loading-spinner/loading-spinner.component';
+import {NgxsFirestoreModule} from "@ngxs-labs/firestore-plugin";
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { LoadingSpinnerComponent } from './core/utilities/components/loading-spi
     WriteProjectDialogComponent,
     ProjectComponent,
     ProjectCardComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -60,10 +63,11 @@ import { LoadingSpinnerComponent } from './core/utilities/components/loading-spi
     RxReactiveFormsModule, // RxWeb Reactive forms validators
     NgxsModule.forRoot([ // ngxs
       LoadingState,
-      ProjectsState,
+      AccountState,
     ], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
+    NgxsFirestoreModule.forRoot(),
     NgxChartsModule
   ],
   providers: [],

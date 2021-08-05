@@ -140,7 +140,7 @@ export class AuthService extends AuthBaseService {
    * Routes user to their profile
    */
   async routeUser(path: string): Promise<void> {
-    await this.router.navigate([`${this.getUserID()}/console`]); // route to profile
+    await this.router.navigate([`account/${this.getUserID()}`]); // route to profile
   }
 
   //endregion
