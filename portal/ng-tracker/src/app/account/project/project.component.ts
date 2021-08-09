@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Route, Router} from "@angular/router";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {map, tap} from "rxjs/operators";
-import {GetAccount} from "../../core/state/projects/account.actions";
+import {catchError, map, tap} from "rxjs/operators";
 import {AccountState} from "../../core/state/projects/account.state";
+import {AccountService} from "../account.service";
 
 @Component({
   selector: 'app-project',
@@ -24,18 +24,21 @@ export class ProjectComponent implements OnInit {
   // loading state
   state$: Observable<any> | undefined;
 
-  // @Select((state: any) => state.account[0]) state$: Observable<any> | undefined;
-  constructor(private route: ActivatedRoute, private store: Store) {}
-
-  ngOnInit(): void {
-    const projectId = this.route.snapshot.paramMap.get('projectId') as unknown as number;
-
-    // this.state$ = this.store.select(state => state.account);
-
-    this.state$ = this.store.select(AccountState.getIndexed).pipe(map(filterFn => filterFn(projectId)));
-
-
-    // this.store.dispatch(new GetAccount(''));
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store, private accService: AccountService) {
   }
 
+  async ngOnInit(): Promise<void> {
+    const projectId = this.route.snapshot.paramMap.get('projectId') as unknown as number;
+    this.state$ = this.store.select(AccountState.selectedProjectIndex)
+      .pipe(map(filterFn => filterFn(projectId)), tap(val => {
+        // invalid route param so reroute to console
+        if (val === -1) {
+          this.router.navigate([`/`]);
+        }
+      }));
+  }
+
+  async deleteProject(pro: any): Promise<void> {
+    await this.accService.deleteProject(pro);
+  }
 }

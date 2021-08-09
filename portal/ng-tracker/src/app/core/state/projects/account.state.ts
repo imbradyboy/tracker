@@ -3,7 +3,7 @@
  * Follow tutorial here: https://fireship.io/lessons/ngxs-quick-start-angular-state-management/ for setting it up
  */
 
-import {Action, Selector, State, StateContext} from '@ngxs/store';
+import {Action, createSelector, Selector, State, StateContext} from '@ngxs/store';
 import {GetAccount, OpenWriteProjectDialog} from "./account.actions";
 import {MatDialog} from "@angular/material/dialog";
 import {WriteProjectDialogComponent} from "../../../account/write-project/write-project-dialog/write-project-dialog.component";
@@ -16,9 +16,7 @@ import {ProgressBarMode} from "@angular/material/progress-bar";
 import {Route, Router} from "@angular/router";
 
 export interface AccountStateModel {
-  projects: [{dbUrl: string, nickname: string}]
-  value: number;
-  isVisible: boolean;
+  projects: [{ dbUrl: string, nickname: string }],
 }
 
 @State<any>({
@@ -42,13 +40,12 @@ export class AccountState {
 
   // returns the required index
   @Selector()
-  static getIndexed(state: any, router: Router) {
-    return async (index: number) => { //<--- Return a function from select
-      if (index > state[0]?.projects.length) {
-        throw new Error('Invalid route params');
-    }
-
-
+  static selectedProjectIndex(state: any) {
+    return (index: number) => { //<--- Return a function from select
+      if (index > state[0]?.projects.length - 1 || isNaN(index)) {
+        return -1; // signifies an error
+      }
+      console.warn(typeof index);
       return state[0]?.projects[index];
     };
   }

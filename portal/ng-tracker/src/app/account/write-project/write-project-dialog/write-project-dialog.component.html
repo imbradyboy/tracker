@@ -1,7 +1,10 @@
+{{'' // write project loading dialog}}
+<mat-progress-bar *ngIf="loading" class="w-100" color="accent" mode="indeterminate"></mat-progress-bar>
+
 <div class="row row-cols-2 gx-0 vh-100">
   <div class="col-12 col-md-4 d-flex align-items-center justify-content-center p-md-5">
     <div class="mb-md-5">
-      <app-write-project (isComplete)="isComplete($event)"></app-write-project>
+      <app-write-project (isComplete)="isComplete($event)" (isLoading)="isLoading($event)"></app-write-project>
     </div>
 
   </div>

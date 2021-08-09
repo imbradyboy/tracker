@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   accountDoc$: Observable<any> | undefined;
 
   // loading state
-  @Select((state: any) => state.account[0]) state$: Observable<any> | undefined;
+  @Select((state: any) => state.account) state$: Observable<any> | undefined;
 
   constructor(private route: ActivatedRoute, private accService: AccountService, private store: Store, public auth: AuthBaseService) {
   }

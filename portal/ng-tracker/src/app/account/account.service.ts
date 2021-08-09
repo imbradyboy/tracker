@@ -35,4 +35,13 @@ export class AccountService extends NgxsFirestore<any> {
         projects: firebase.default.firestore.FieldValue.arrayUnion(form)
       }, {merge: true})
   }
+
+  // do this here instead of state because it's a lot easier to do array Unions
+  // and state is syncing this up anyway so it doesn't matter
+  async deleteProject(project: any) {
+    await this.afs.doc(`users/${this.auth.getUserID()}`).set(
+      {
+        projects: firebase.default.firestore.FieldValue.arrayRemove(project)
+      }, {merge: true})
+  }
 }

@@ -1,4 +1,4 @@
-// push the write-project component down a little
-//#write-project-container {
-//  margin-top: 30%;
-//}
+// hug loading bar to top of dialog
+mat-progress-bar {
+  margin-bottom: -4px;
+}

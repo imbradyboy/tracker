@@ -21,16 +21,16 @@ import {LoadingState} from "./core/state/loader/loading.state";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 import {environment} from "../environments/environment";
-import { LogoutDialogComponent } from './account/logout-dialog/logout-dialog.component';
+import {LogoutDialogComponent} from './account/logout-dialog/logout-dialog.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
-import { WriteProjectComponent } from './account/write-project/write-project.component';
-import { WriteProjectDialogComponent } from './account/write-project/write-project-dialog/write-project-dialog.component';
-import { ProjectComponent } from './account/project/project.component';
-import { ProjectCardComponent } from './account/dashboard/project-card/project-card.component';
+import {WriteProjectComponent} from './account/write-project/write-project.component';
+import {WriteProjectDialogComponent} from './account/write-project/write-project-dialog/write-project-dialog.component';
+import {ProjectComponent} from './account/project/project.component';
+import {ProjectCardComponent} from './account/dashboard/project-card/project-card.component';
 import {AccountState} from "./core/state/projects/account.state";
-import { LoadingSpinnerComponent } from './core/utilities/components/loading-spinner/loading-spinner.component';
+import {LoadingSpinnerComponent} from './core/utilities/components/loading-spinner/loading-spinner.component';
 import {NgxsFirestoreModule} from "@ngxs-labs/firestore-plugin";
-import { AccountComponent } from './account/account.component';
+import {AccountComponent} from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,9 @@ import { AccountComponent } from './account/account.component';
     NgxsModule.forRoot([ // ngxs
       LoadingState,
       AccountState,
-    ], {developmentMode: !environment.production}),
+    ], {
+      developmentMode: !environment.production,
+    }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsFirestoreModule.forRoot(),

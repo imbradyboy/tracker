@@ -22,3 +22,30 @@ mat-progress-bar {
   height: $progress-height;
   margin-top: -$progress-height;
 }
+
+// FOR STYLING THE drop down in the tool bar
+::ng-deep app-root {
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-toolbar mat-select {
+    font-style: initial;
+    font-variant-ligatures: initial;
+    font-variant-caps: initial;
+    font-variant-numeric: initial;
+    font-variant-east-asian: initial;
+    font-weight: initial;
+    font-stretch: initial;
+    font-size: 14px;
+    line-height: initial;
+  }
+
+  .mat-form-field-infix {
+    border-top: unset;
+  }
+
+  .mat-form-field-wrapper, .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: unset;
+  }
+}

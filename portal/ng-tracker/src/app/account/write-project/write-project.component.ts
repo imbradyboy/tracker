@@ -16,6 +16,8 @@ export class WriteProjectComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   error: string | null = null;
   @Output() isComplete: EventEmitter<boolean> = new EventEmitter(); // to close dialog on complete
+  @Output() isLoading: EventEmitter<boolean> = new EventEmitter(); // to toggle loading on write project dialog
+
 
   constructor(@Inject(authErrorsListToken) private authErrorCodes: Map<string, string>, private formBuilder: FormBuilder, private accService: AccountService,
               private store: Store) {
@@ -37,12 +39,9 @@ export class WriteProjectComponent implements OnInit {
   }
 
   async submit(form: any): Promise<void> {
-    console.log(form);
-
     if (this.form.valid) {
-
-
       try {
+        this.isLoading.emit(true);
         await this.accService.writeProject(form);
         this.isComplete.emit(true);
       } catch (err) {
@@ -53,6 +52,7 @@ export class WriteProjectComponent implements OnInit {
         }
         // print error to console if user wants to see the exact message
         console.log(err);
+        this.isLoading.emit(false);
       }
     }
   }

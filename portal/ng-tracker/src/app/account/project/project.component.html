@@ -1,34 +1,19 @@
-<ng-container class="p-md-4" *ngIf="state$ | async as pro; else loading">
-  <section>
+<ng-container *ngIf="state$ | async as pro; else loading">
+  <section class="p-1 p-md-4">
 
     <h2>{{pro.nickname}}
-<!--      <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>-->
+            <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
     </h2>
-
-<!--    <mat-form-field appearance="legacy">-->
-<!--      <mat-label>Select Project</mat-label>-->
-<!--      <mat-select>-->
-<!--        <mat-option (click)="openDialog()">Create new project</mat-option>-->
-<!--        <mat-divider></mat-divider>-->
-<!--        <mat-option *ngFor="let project of acc.projects">-->
-<!--          {{project.nickname}}-->
-<!--        </mat-option>-->
-
-<!--      </mat-select>-->
-<!--    </mat-form-field>-->
-<!--    <mat-icon (click)="openDialog()">add</mat-icon>-->
-
-
-<!--    <mat-menu #menu="matMenu">-->
-<!--      <button mat-menu-item (click)="openDialog()">-->
-<!--        &lt;!&ndash;        <mat-icon>logout</mat-icon>&ndash;&gt;-->
-<!--        <span>Edit Project</span>-->
-<!--      </button>-->
-<!--      <button mat-menu-item>-->
-<!--        &lt;!&ndash;        <mat-icon>logout</mat-icon>&ndash;&gt;-->
-<!--        <span>Delete Project</span>-->
-<!--      </button>-->
-<!--    </mat-menu>-->
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <!--        <mat-icon>logout</mat-icon>-->
+            <span>Edit Project</span>
+          </button>
+          <button mat-menu-item>
+            <!--        <mat-icon>logout</mat-icon>-->
+            <span (click)="deleteProject(pro)">Delete Project</span>
+          </button>
+        </mat-menu>
     {{'' // make these load asynchronously}}
     <mat-tab-group animationDuration="0ms">
       <mat-tab>
@@ -87,7 +72,7 @@
 </ng-container>
 
 <ng-template #loading>
-  LOOKS LIKE THAT PROJECT DOESNT EXIST
+  <app-loading-spinner></app-loading-spinner>
 </ng-template>
 
 

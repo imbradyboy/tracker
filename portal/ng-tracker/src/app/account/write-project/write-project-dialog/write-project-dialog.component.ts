@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
+import {$e} from "codelyzer/angular/styles/chars";
 
 @Component({
   selector: 'app-write-project-write-project-dialog',
@@ -7,6 +8,8 @@ import {MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./write-project-dialog.component.scss']
 })
 export class WriteProjectDialogComponent implements OnInit {
+
+  loading = false;
 
   constructor(private dialogRef: MatDialogRef<WriteProjectDialogComponent>) { }
 
@@ -17,5 +20,9 @@ export class WriteProjectDialogComponent implements OnInit {
     if ($event) {
       this.dialogRef.close();
     }
+  }
+
+  isLoading($event: boolean) {
+    this.loading = $event;
   }
 }

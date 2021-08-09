@@ -6,6 +6,7 @@
 import {Action, State, StateContext} from '@ngxs/store';
 import {ResetLoading, SetLoading} from './loader.actions';
 import {ProgressBarMode} from "@angular/material/progress-bar";
+import {Injectable} from "@angular/core";
 
 export interface LoadingStateModel {
   mode: ProgressBarMode;
@@ -24,6 +25,7 @@ const defaults: LoadingStateModel = {
   defaults
 })
 
+@Injectable()
 export class LoadingState {
   @Action(SetLoading)
   setLoading({setState}: StateContext<LoadingStateModel>, payload: SetLoading): void {
