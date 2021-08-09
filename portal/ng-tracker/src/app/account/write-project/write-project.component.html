@@ -3,10 +3,11 @@
   <!--card heading-->
   <div class="mat-display-1 mb-3">
     <img src='assets/images/brand/animated_slide_fast.gif' alt='Firebase-Me animated logo' width="50" height="50">
-    Add new project
+    <ng-container *ngIf="!editProject">Add new project</ng-container>
+    <ng-container *ngIf="editProject">Edit Project</ng-container>
   </div> <!--end card heading-->
   <!--db error-->
-  <div class="col-12 error-container d-flex justify-content-center">
+  <div class="error-container d-flex justify-content-center">
     <mat-error *ngIf="error" class="d-flex align-items-center text-center">
       <mat-icon>error</mat-icon>
       {{error}}
@@ -41,8 +42,13 @@
           <!--login-->
           <button type="submit" mat-raised-button color="primary" class="w-100">Submit</button>
         </div>
-
       </div>
     </form> <!--end login form-->
+    <div id="link-options" class="col d-flex flex-column align-items-start">
+      <button mat-button (click)="isComplete.emit(true)" type="button">
+        <mat-icon>chevron_left</mat-icon>
+        Go back
+      </button>
+    </div>
   </mat-card-content>
 </mat-card> <!--end login card-->

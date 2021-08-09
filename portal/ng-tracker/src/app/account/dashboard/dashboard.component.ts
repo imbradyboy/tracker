@@ -6,7 +6,7 @@ import {map, share, tap} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthBaseService} from "../../core/auth/auth-base.service";
 import {Select, Store} from "@ngxs/store";
-import {GetAccount, OpenWriteProjectDialog} from "../../core/state/projects/account.actions";
+import {GetAccount, OpenWriteProjectDialog, SetSelectedProject} from "../../core/state/projects/account.actions";
 
 @Component({
   selector: 'app-dashboard',

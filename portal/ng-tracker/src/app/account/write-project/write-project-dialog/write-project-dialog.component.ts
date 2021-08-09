@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {$e} from "codelyzer/angular/styles/chars";
 
 @Component({
@@ -11,9 +11,10 @@ export class WriteProjectDialogComponent implements OnInit {
 
   loading = false;
 
-  constructor(private dialogRef: MatDialogRef<WriteProjectDialogComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<WriteProjectDialogComponent>) { }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
 
   isComplete($event: boolean) {
@@ -23,6 +24,6 @@ export class WriteProjectDialogComponent implements OnInit {
   }
 
   isLoading($event: boolean) {
-    this.loading = $event;
+    this.loading = $event || false;
   }
 }

@@ -2,11 +2,12 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConnectionService} from "ng-connection-service";
 import {Observable, Subscription} from "rxjs";
 import {PopupService} from "./core/utilities/services/popup.service";
-import {Select} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {LoadingStateModel} from "./core/state/loader/loading.state";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "./core/auth/auth.service";
 import {LogoutDialogComponent} from "./account/logout-dialog/logout-dialog.component";
+import {OpenWriteProjectDialog} from "./core/state/projects/account.actions";
 
 @Component({
   selector: 'app-root',
@@ -18,11 +19,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   connectionSubscription: Subscription;
 
+  @Select((state: any) => state.account.projects) projectState$: Observable<any> | undefined;
+  @Select((state: any) => state.account.selectedProject) selectedProjectState$: Observable<any> | undefined;
+
   // loading state
   @Select((state: any) => state.loading) state$: Observable<LoadingStateModel> | undefined;
 
   constructor(private connectionService: ConnectionService, private popup: PopupService, private dialog: MatDialog,
-              public auth: AuthService) {
+              public auth: AuthService, private store: Store) {
     // listen for connection change to alert user if they go offline
     this.connectionSubscription = this.connectionService.monitor().subscribe(isConnected => {
       if (isConnected) {
@@ -34,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log(this.store.snapshot().account);
   }
 
   ngOnDestroy(): void {
@@ -51,5 +56,14 @@ export class AppComponent implements OnInit, OnDestroy {
         await this.auth.logout();
       }
     });
+  }
+
+  openWriteProjectDialog() {
+    this.store.dispatch([new OpenWriteProjectDialog]);
+  }
+
+  getSelectedProject() {
+    // return
+    return '0';
   }
 }

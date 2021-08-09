@@ -4,7 +4,7 @@
  */
 
 import {Action, createSelector, Selector, State, StateContext} from '@ngxs/store';
-import {GetAccount, OpenWriteProjectDialog} from "./account.actions";
+import {GetAccount, OpenDeleteProjectDialog, OpenWriteProjectDialog, SetSelectedProject} from "./account.actions";
 import {MatDialog} from "@angular/material/dialog";
 import {WriteProjectDialogComponent} from "../../../account/write-project/write-project-dialog/write-project-dialog.component";
 import {Injectable, NgZone} from "@angular/core";
@@ -14,14 +14,27 @@ import {iif, insertItem, patch, updateItem} from "@ngxs/store/operators";
 import {AuthBaseService} from "../../auth/auth-base.service";
 import {ProgressBarMode} from "@angular/material/progress-bar";
 import {Route, Router} from "@angular/router";
+import {LoadingStateModel} from "../loader/loading.state";
+import {DeleteProjectDialogComponent} from "../../../account/delete-project-dialog/delete-project-dialog.component";
+
+export interface Project {
+  dbUrl: string,
+  nickname: string,
+}
 
 export interface AccountStateModel {
-  projects: [{ dbUrl: string, nickname: string }],
+  projects: Project[],
+  selectedProject: any
 }
+
+const defaults: AccountStateModel = {
+  projects: [],
+  selectedProject: -1
+};
 
 @State<any>({
   name: 'account',
-  defaults: []
+  defaults: defaults
 })
 
 @Injectable()
@@ -42,36 +55,55 @@ export class AccountState {
   @Selector()
   static selectedProjectIndex(state: any) {
     return (index: number) => { //<--- Return a function from select
-      if (index > state[0]?.projects.length - 1 || isNaN(index)) {
+      if (index > state.projects.length - 1 || isNaN(index)) {
         return -1; // signifies an error
       }
-      console.warn(typeof index);
-      return state[0]?.projects[index];
+      return state.projects[index];
     };
   }
 
   // store GET action in state
   @Action(StreamEmitted(GetAccount))
-  getAccount({setState}: StateContext<any>, {payload}: Emitted<GetAccount, any>) {
-    setState(
-      iif(
-        (projects) =>
-          !!(projects as any)?.find((pro: { id: any; }) => pro.id === payload.id),
-        updateItem((pro) => (pro as any).id === payload.id, patch(payload)),
-        insertItem(payload)
-      )
+  getAccount({patchState}: StateContext<any>, {payload}: Emitted<GetAccount, any>) {
+    patchState(
+      payload
     )
   }
 
   @Action(OpenWriteProjectDialog)
-  openWriteProjectDialog(): void {
+  openWriteProjectDialog({setState}: StateContext<any>, {project}: OpenWriteProjectDialog): void {
     // can't close dialog in ngxs without ngZone. See GitHub responses here: https://github.com/ngxs/store/issues/1401
     this.ngZone.run(() => {
       this.dialog.open(WriteProjectDialogComponent, {
         panelClass: ['full-screen', 'animate__animated', 'animate__slideInRight', 'animate__faster'],
+        data: project, // if this is an edit then project will exist
         autoFocus: false,
       })
     });
+  }
+
+  @Action(OpenDeleteProjectDialog)
+  openDeleteProjectDialog({setState}: StateContext<any>, {project}: OpenDeleteProjectDialog): void {
+    // can't close dialog in ngxs without ngZone. See GitHub responses here: https://github.com/ngxs/store/issues/1401
+    this.ngZone.run(() => {
+      this.dialog.open(DeleteProjectDialogComponent, {
+        data: project, // if this is an edit then project will exist
+        autoFocus: false,
+      })
+    });
+  }
+
+  @Action(SetSelectedProject)
+  setSelectedProject(ctx: StateContext<any>, payload: SetSelectedProject): void {
+    const state = ctx.getState();
+
+    if (state) {
+      const selectedProject = state.projects[payload.selectedProjectIndex];
+      ctx.patchState({selectedProject: selectedProject});
+    }
+
+    // ctx.setState({...defaults});
+
   }
 }
 

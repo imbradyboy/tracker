@@ -31,6 +31,7 @@ import {AccountState} from "./core/state/projects/account.state";
 import {LoadingSpinnerComponent} from './core/utilities/components/loading-spinner/loading-spinner.component';
 import {NgxsFirestoreModule} from "@ngxs-labs/firestore-plugin";
 import {AccountComponent} from './account/account.component';
+import { DeleteProjectDialogComponent } from './account/delete-project-dialog/delete-project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {AccountComponent} from './account/account.component';
     ProjectComponent,
     ProjectCardComponent,
     LoadingSpinnerComponent,
-    AccountComponent
+    AccountComponent,
+    DeleteProjectDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {catchError, map, tap} from "rxjs/operators";
+import {catchError, map, take, tap} from "rxjs/operators";
 import {AccountState} from "../../core/state/projects/account.state";
 import {AccountService} from "../account.service";
+import {OpenWriteProjectDialog, SetSelectedProject} from "../../core/state/projects/account.actions";
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent implements OnInit, OnDestroy {
 
   saleData = [
     {name: "Mobiles", value: 105000},
@@ -29,6 +31,7 @@ export class ProjectComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const projectId = this.route.snapshot.paramMap.get('projectId') as unknown as number;
+
     this.state$ = this.store.select(AccountState.selectedProjectIndex)
       .pipe(map(filterFn => filterFn(projectId)), tap(val => {
         // invalid route param so reroute to console
@@ -36,9 +39,27 @@ export class ProjectComponent implements OnInit {
           this.router.navigate([`/`]);
         }
       }));
+
+    this.store.dispatch(new SetSelectedProject(projectId));
+
+
+    // this.state$.pipe( tap(val => {
+    //   console.warn(val);
+    //   if (isNotNullOrUndefined(val)) {
+    //     // this.store.dispatch(new SetSelectedProject(projectId));
+    //   }
+    // }))
   }
 
   async deleteProject(pro: any): Promise<void> {
-    await this.accService.deleteProject(pro);
+    await this.accService.openDeleteProjectDialog(pro);
+  }
+
+  editProject(pro: any) {
+    this.store.dispatch(new OpenWriteProjectDialog(pro));
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(new SetSelectedProject(-1));
   }
 }

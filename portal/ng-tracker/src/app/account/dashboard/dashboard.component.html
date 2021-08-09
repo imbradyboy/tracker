@@ -3,17 +3,17 @@
 
   {{'' // change header depending on if user doc exists}}
   <h1 class="mat-display-1 d-flex align-items-center mb-3 ps-3">
-    <ng-container *ngIf="acc.length > 0">Current Projects</ng-container>
-    <ng-container *ngIf="acc.length === 0">Add a Project</ng-container>
+    <ng-container *ngIf="acc.projects && acc.projects.length > 0">Current Projects</ng-container>
+    <ng-container *ngIf="!acc.projects || acc.projects.length === 0">Add a Project</ng-container>
     <button mat-mini-fab class="ms-3" matTooltip="Add new project" (click)="openWriteProjectDialog()">
       <mat-icon>add</mat-icon>
     </button>
   </h1>
 
   {{'' // if user doc exists}}
-  <ng-container *ngIf="acc.length > 0">
+  <ng-container *ngIf="acc.projects && acc.projects.length > 0">
     <div class="row row-cols-md-4 row-cols-xl-5 m-0">
-      <ng-container *ngFor="let pro of acc[0]?.projects; let i = index">
+      <ng-container *ngFor="let pro of acc.projects; let i = index">
         <div class="col">
           <app-project-card [project]="pro" [index]="i"></app-project-card>
         </div>
@@ -22,7 +22,7 @@
   </ng-container>
 
   {{'' // if user doc doesn't exist}}
-  <ng-container *ngIf="acc.length === 0">
+  <ng-container *ngIf="!acc.projects || acc.projects.length === 0">
     <mat-card id="no-projects" class="no-bg-md">
       <mat-card-header>
         <mat-card-title>Welcome to Firetrace</mat-card-title>
