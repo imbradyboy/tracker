@@ -1,0 +1,4 @@
+// set fixed height so there is no jumping on switch between divider and progress bar
+#progress-container {
+  height: 4px;
+}

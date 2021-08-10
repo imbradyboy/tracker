@@ -1,17 +1,9 @@
-section {
-  @media screen and (max-width: 599px) {
-    height: calc(100vh - 56px);
-  }
-  @media screen and (min-width: 600px) {
-    height: calc(100vh - 64px);
-  }
-}
+$progress-height: 4px;
 
+// "Firetrace" font styles
 #logo-text {
   font-size: 20px;
 }
-
-$progress-height: 3px;
 
 // styles for the progress bar stuck to the bottom of the toolbar
 mat-toolbar {
@@ -23,10 +15,11 @@ mat-progress-bar {
   margin-top: -$progress-height;
 }
 
-// FOR STYLING THE project selection drop down in the tool bar
+/*______________________________________________________________________
+ * MAT OVERRIDES
+ * For styling the project mat select in the toolbar
+ * ______________________________________________________________________*/
 ::ng-deep app-root nav#site-navigation {
-
-
   // remove underline on select box
   .mat-form-field-underline {
     display: none;

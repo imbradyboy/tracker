@@ -2,9 +2,7 @@ import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/c
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RxwebValidators} from "@rxweb/reactive-form-validators";
 import {AccountService} from "../account.service";
-import {ResetLoading, SetLoading} from "../../core/state/loader/loader.actions";
 import {authErrorsListToken} from "../../core/auth/auth.providers";
-import {Store} from "@ngxs/store";
 
 @Component({
   selector: 'app-write-project',
@@ -20,10 +18,8 @@ export class WriteProjectComponent implements OnInit {
   @Input() editProject: any; // to toggle loading on write project dialog
 
 
-
-  constructor(@Inject(authErrorsListToken) private authErrorCodes: Map<string, string>, private formBuilder: FormBuilder, private accService: AccountService,
-              private store: Store) {
-  }
+  constructor(@Inject(authErrorsListToken) private authErrorCodes: Map<string, string>, private formBuilder: FormBuilder,
+              private accService: AccountService) {}
 
   ngOnInit(): void {
     this.buildForm();

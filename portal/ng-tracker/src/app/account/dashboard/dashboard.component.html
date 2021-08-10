@@ -1,8 +1,8 @@
-<section id="bg-image" class="py-4 p-md-4" *ngIf="state$ | async as acc; else loading"
+<section id="bg-image" class="py-4 p-md-4 full-screen-height" *ngIf="state$ | async as acc; else loading"
          appBgImage="assets/images/brand/Firebaseme_splash2.png">
 
   {{'' // change header depending on if user doc exists}}
-  <h1 class="mat-display-1 d-flex align-items-center mb-3 ps-3">
+  <h1 class="mat-display-1 align-text-icon-center mb-3 ps-3">
     <ng-container *ngIf="acc.projects && acc.projects.length > 0">Current Projects</ng-container>
     <ng-container *ngIf="!acc.projects || acc.projects.length === 0">Add a Project</ng-container>
     <button mat-mini-fab class="ms-3" matTooltip="Add new project" (click)="openWriteProjectDialog()">
@@ -23,7 +23,7 @@
 
   {{'' // if user doc doesn't exist}}
   <ng-container *ngIf="!acc.projects || acc.projects.length === 0">
-    <mat-card id="no-projects" class="no-bg-md">
+    <mat-card id="no-projects" class="no-bg-card">
       <mat-card-header>
         <mat-card-title>Welcome to Firetrace</mat-card-title>
         <mat-card-subtitle>Create your first Firetrace project to start tracking your Firebase activity

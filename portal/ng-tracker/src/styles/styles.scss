@@ -1,9 +1,11 @@
 /**
  * Global app styles
  */
-@import 'partials/material-design/custom-theme'; // our custom theme
+@import 'partials/material-design/custom-theme';
+// our custom theme
 
-@import 'partials/functions'; // custom SCSS functions
+@import 'partials/functions';
+// custom SCSS functions
 
 // Include our customized and fixed parts of bootstrap required for this project
 @import 'partials/bootstrap/master';
@@ -14,15 +16,9 @@ body {
   color: map-get($theme-colors, 'white');
 }
 
-.ngx-charts {
-  fill: map-get($theme-colors, 'white');
-
-  .gridline-path {
-    stroke: darken(map-get($theme-colors, 'divider'), 40%) !important;
-  }
-
-}
-
+/*______________________________________________________________________
+ * Custom error styles
+ * ______________________________________________________________________*/
 // firebase error styles
 div.error-container {
   height: 20px;
@@ -34,8 +30,46 @@ div.error-container {
   }
 }
 
-// TEST STYLES
-.full-screen {
+/*______________________________________________________________________
+ * Align text and icons
+ * ______________________________________________________________________*/
+// to align text and icon to be vertically centered with each other
+.align-text-icon-center {
+  display: flex;
+  align-items: center;
+}
+
+/*______________________________________________________________________
+ * Full screen styles
+ * ______________________________________________________________________*/
+// makes any element 100vh minus the size of the toolbar
+.full-screen-height {
+  @media screen and (max-width: 599px) {
+    height: calc(100vh - 56px);
+  }
+  @media screen and (min-width: 600px) {
+    height: calc(100vh - 64px);
+  }
+}
+
+/*______________________________________________________________________
+ * Card with no background
+ * ______________________________________________________________________*/
+// remove box shadow, border-radius, and set colour to same as dark background
+mat-card.no-bg-card {
+  background-color: map-get($theme-colors, 'fbm-dark');
+  box-shadow: unset !important;
+
+  #link-options a {
+    line-height: 25px;
+    font-weight: 400;
+  }
+}
+
+/*______________________________________________________________________
+ * Full screen dialog
+ * ______________________________________________________________________*/
+.full-screen-dialog {
   max-width: none !important;
   height: 100vh !important;
   width: 100vw !important;
@@ -43,5 +77,16 @@ div.error-container {
   mat-dialog-container {
     padding: 0;
     background-color: map-get($theme-colors, 'fbm-dark');
+  }
+}
+
+/*______________________________________________________________________
+ * Chart styles
+ * ______________________________________________________________________*/
+.ngx-charts {
+  fill: map-get($theme-colors, 'white');
+
+  .gridline-path {
+    stroke: darken(map-get($theme-colors, 'divider'), 40%) !important;
   }
 }

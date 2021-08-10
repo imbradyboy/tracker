@@ -15,8 +15,6 @@ import {GetAccount, OpenWriteProjectDialog, SetSelectedProject} from "../../core
 })
 export class DashboardComponent implements OnInit {
 
-  accountDoc$: Observable<any> | undefined;
-
   // loading state
   @Select((state: any) => state.account) state$: Observable<any> | undefined;
 

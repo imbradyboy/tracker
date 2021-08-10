@@ -1,25 +1,4 @@
-.row {
-  @media screen and (max-width: 599px) {
-    height: calc(100vh - 56px);
-  }
-  @media screen and (min-width: 600px) {
-    height: calc(100vh - 64px);
-  }
-}
-
 .auth-form-container {
   display: grid;
-}
-
-::ng-deep app-unauth-parent {
-  mat-card {
-    background: unset !important;
-    box-shadow: unset !important;
-
-    #link-options a {
-      line-height: 25px;
-      font-weight: 400;
-    }
-  }
 }
 

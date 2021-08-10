@@ -1,14 +1,13 @@
 <ng-container *ngIf="state$ | async as pro; else loading">
   <section class="p-1 p-md-4">
 
-    <h2 class="d-flex align-items-center">{{pro.nickname}}
+    <h2 class="align-text-icon-center">{{pro.nickname}}
       <button mat-icon-button>
         <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
       </button>
     </h2>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="editProject(pro)">
-        <!--        <mat-icon>logout</mat-icon>-->
         <span>Edit Project</span>
       </button>
       <button mat-menu-item (click)="deleteProject(pro)">

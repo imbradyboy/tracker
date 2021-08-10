@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Route, Router} from "@angular/router";
-import {Select, Store} from "@ngxs/store";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Store} from "@ngxs/store";
 import {Observable, Subscription} from "rxjs";
-import {catchError, debounceTime, delay, map, take, tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {AccountState} from "../../core/state/projects/account.state";
 import {AccountService} from "../account.service";
 import {
@@ -10,9 +10,7 @@ import {
   ResetSelectedProject,
   SetSelectedProject
 } from "../../core/state/projects/account.actions";
-import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
-import {startsWith} from "@rxweb/reactive-form-validators";
-import {DisconnectAll} from "@ngxs-labs/firestore-plugin";
+
 
 @Component({
   selector: 'app-project',

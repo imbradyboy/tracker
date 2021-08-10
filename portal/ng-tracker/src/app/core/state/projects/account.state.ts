@@ -81,7 +81,7 @@ export class AccountState {
     // can't close dialog in ngxs without ngZone. See GitHub responses here: https://github.com/ngxs/store/issues/1401
     this.ngZone.run(() => {
       this.dialog.open(WriteProjectDialogComponent, {
-        panelClass: ['full-screen', 'animate__animated', 'animate__slideInRight', 'animate__faster'],
+        panelClass: ['full-screen-dialog', 'animate__animated', 'animate__slideInRight', 'animate__faster'],
         data: project, // if this is an edit then project will exist
         autoFocus: false,
       })

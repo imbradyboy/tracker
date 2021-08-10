@@ -11,22 +11,6 @@ mat-tab-group label {
     }
 }
 
-section {
-  @media screen and (max-width: 599px) {
-    height: calc(100vh - 56px);
-  }
-  @media screen and (min-width: 600px) {
-    height: calc(100vh - 64px);
-  }
-}
-
-// remove box shadow, border-radius, and set colour to same as dark background on "no projects" card
-.no-bg-md {
-  background-color: map-get($theme-colors, 'fbm-dark');
-  box-shadow: unset;
-  border-radius: unset;
-}
-
 // adjust the position of the background image on smaller devices for readability
 @media screen and (max-width: map-get($grid-breakpoints, 'sm')) {
   #bg-image {
@@ -37,7 +21,7 @@ section {
 
 // on larger devices remove the background of the "no projects" card
 @media screen and (min-width: map-get($grid-breakpoints, 'sm')) {
-  .no-bg-md {
+  .no-bg-card {
     background: unset;
   }
 }

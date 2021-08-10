@@ -58,26 +58,6 @@ export class AccountService extends NgxsFirestore<any> {
         projects: firebase.default.firestore.FieldValue.arrayUnion(form)
       }, {merge: true});
     }
-
-    // // Declaring batch
-    // const batch = this.afs.firestore.batch();
-    //
-    // // Reference to the filter document to be added to
-    // const docRef = await this.afs.doc(`users/${this.auth.getUserID()}`);
-    //
-    // // Initialize batch update filters
-    // await batch.set(docRef.ref, {
-    //   projects: firebase.default.firestore.FieldValue.arrayUnion(form)
-    // }, {merge: true});
-    //
-    // if (oldProject) {
-    //   await batch.set(docRef.ref, {
-    //     projects: firebase.default.firestore.FieldValue.arrayRemove(oldProject)
-    //   }, {merge: true});
-    // }
-    //
-    // // Run batch
-    // await batch.commit();
   }
 
   // do this here instead of state because it's a lot easier to do array Unions

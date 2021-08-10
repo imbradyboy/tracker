@@ -1,4 +1,4 @@
-// hug loading bar to top of dialog
+// hug loading bar to top of dialog by offsetting margin by the height of the loading bar
 mat-progress-bar {
   margin-bottom: -4px;
 }
