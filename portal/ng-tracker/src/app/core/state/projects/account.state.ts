@@ -4,7 +4,13 @@
  */
 
 import {Action, createSelector, Selector, State, StateContext} from '@ngxs/store';
-import {GetAccount, OpenDeleteProjectDialog, OpenWriteProjectDialog, SetSelectedProject} from "./account.actions";
+import {
+  GetAccount,
+  OpenDeleteProjectDialog,
+  OpenWriteProjectDialog,
+  ResetSelectedProject,
+  SetSelectedProject
+} from "./account.actions";
 import {MatDialog} from "@angular/material/dialog";
 import {WriteProjectDialogComponent} from "../../../account/write-project/write-project-dialog/write-project-dialog.component";
 import {Injectable, NgZone} from "@angular/core";
@@ -101,9 +107,11 @@ export class AccountState {
       const selectedProject = state.projects[payload.selectedProjectIndex];
       ctx.patchState({selectedProject: selectedProject});
     }
+  }
 
-    // ctx.setState({...defaults});
-
+  @Action(ResetSelectedProject)
+  resetSelectedProject({patchState}: StateContext<any>): void {
+    patchState({selectedProject: defaults.selectedProject})
   }
 }
 

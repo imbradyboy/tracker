@@ -22,3 +22,8 @@ export class SetSelectedProject {
   public static readonly type = '[account] set selected project';
   constructor(public selectedProjectIndex: number) {}
 }
+
+export class ResetSelectedProject {
+  public static readonly type = '[account] reset selected project';
+  constructor() {}
+}

@@ -1,4 +1,4 @@
-<nav>
+<nav id="site-navigation">
   <mat-toolbar class="justify-content-between">
 
     <div class="d-flex align-items-center">
@@ -7,28 +7,28 @@
         <span id="logo-text">Firetrace</span>
       </a>
 
+      {{'' // get all projects in state so we can loop over them}}
       <ng-container *ngIf="projectState$ | async as pro">
-<!--        <ng-container *ngIf="selectedProjectState$ | async as sp">-->
-          <mat-divider class="mx-4" style="height:40px" [vertical]="true"></mat-divider>
-          <mat-form-field id="project-picker" appearance="legacy">
-            <mat-select [value]="'0'">
-              <mat-option value="0" disabled>Select project</mat-option>
-              <mat-option value="new" (click)="openWriteProjectDialog()">Create new project</mat-option>
-              <mat-option *ngFor="let p of pro" [value]="p.nickname">{{p.nickname}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-<!--        </ng-container>-->
+
+        {{'' // only show if there are projects}}
+        <ng-container *ngIf="pro.length != 0">
+          {{'' // get selected project from state so we can set it as selected dropdown option if it exists}}
+          <ng-container *ngIf="selectedProjectState$ | async as sp">
+            <mat-divider class="mx-4" style="height:40px" [vertical]="true"></mat-divider>
+            <mat-form-field id="project-picker" appearance="legacy">
+              <mat-select #selector [value]="sp.nickname || '0'">
+                <mat-option value="0" disabled>Select project</mat-option>
+                {{'' // fake mat-option so we can open write dialog without changing the selected value}}
+                <div class="no-disabled-styles mat-option" (click)="openWriteProjectDialog(selector)">Create new project
+                </div>
+                <mat-option *ngFor="let p of pro; let i = index" [value]="p.nickname"
+                            (click)="routeToIndex(i)">{{p.nickname}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
       </ng-container>
     </div>
-    <!--    <mat-form-field appearance="legacy">-->
-    <!--      &lt;!&ndash;        <mat-label>Choose an option</mat-label>&ndash;&gt;-->
-    <!--      <mat-select>-->
-    <!--        <mat-option value="option1">Create new project</mat-option>-->
-    <!--        <mat-option value="option1">Option 1</mat-option>-->
-    <!--        <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>-->
-    <!--        <mat-option value="option3">Option 3</mat-option>-->
-    <!--      </mat-select>-->
-    <!--    </mat-form-field>-->
     <ng-container *ngIf="auth.isLoggedIn()">
 
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -55,5 +55,3 @@
 
   <router-outlet></router-outlet>
 </section>
-
-<!--d-flex flex-column align-items-start justify-content-center-->

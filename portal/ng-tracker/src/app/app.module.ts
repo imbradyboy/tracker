@@ -32,6 +32,7 @@ import {LoadingSpinnerComponent} from './core/utilities/components/loading-spinn
 import {NgxsFirestoreModule} from "@ngxs-labs/firestore-plugin";
 import {AccountComponent} from './account/account.component';
 import { DeleteProjectDialogComponent } from './account/delete-project-dialog/delete-project-dialog.component';
+import {NgxsResetPluginModule} from "ngxs-reset-plugin";
 
 @NgModule({
   declarations: [
@@ -69,10 +70,11 @@ import { DeleteProjectDialogComponent } from './account/delete-project-dialog/de
     ], {
       developmentMode: !environment.production,
     }),
+    NgxsResetPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsFirestoreModule.forRoot(),
-    NgxChartsModule
+    NgxChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

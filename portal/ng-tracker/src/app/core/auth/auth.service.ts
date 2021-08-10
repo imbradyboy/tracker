@@ -8,13 +8,16 @@ import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AuthBaseService} from './auth-base.service';
 import firebase from "firebase/app";
+import {Store} from "@ngxs/store";
+import {DisconnectAll} from "@ngxs-labs/firestore-plugin";
+import {StateResetAll} from "ngxs-reset-plugin";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends AuthBaseService {
 
-  constructor(afAuth: AngularFireAuth, private router: Router) {
+  constructor(afAuth: AngularFireAuth, private router: Router, private store: Store) {
     super(afAuth);
   }
 
@@ -133,6 +136,8 @@ export class AuthService extends AuthBaseService {
    */
   async logout(): Promise<void> {
     await this.afAuth.signOut(); // calls firebase function to logout
+    this.store.dispatch(new DisconnectAll()); // disconnect all firebase listeners
+    this.store.dispatch(new StateResetAll()); // reset state to default
     await this.router.navigate(['/login']); // navigate back to login page
   }
 

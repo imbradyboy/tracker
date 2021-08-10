@@ -32,6 +32,7 @@
     "firebase": "^8.7.1",
     "firebase-tools": "^9.16.0",
     "ng-connection-service": "^1.0.4",
+    "ngxs-reset-plugin": "^1.4.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

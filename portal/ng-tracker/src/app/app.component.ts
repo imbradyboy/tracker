@@ -8,6 +8,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "./core/auth/auth.service";
 import {LogoutDialogComponent} from "./account/logout-dialog/logout-dialog.component";
 import {OpenWriteProjectDialog} from "./core/state/projects/account.actions";
+import {debounceTime, delay} from "rxjs/operators";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -26,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @Select((state: any) => state.loading) state$: Observable<LoadingStateModel> | undefined;
 
   constructor(private connectionService: ConnectionService, private popup: PopupService, private dialog: MatDialog,
-              public auth: AuthService, private store: Store) {
+              public auth: AuthService, private store: Store, private router: Router, private activatedRoute: ActivatedRoute) {
     // listen for connection change to alert user if they go offline
     this.connectionSubscription = this.connectionService.monitor().subscribe(isConnected => {
       if (isConnected) {
@@ -58,12 +60,17 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  openWriteProjectDialog() {
+  openWriteProjectDialog(selector: any = null) {
+
+    // the create project in dropdown isnt a real mat-option, so we have to force close the select panel
+    if (selector) {
+      selector.close();
+    }
     this.store.dispatch([new OpenWriteProjectDialog]);
   }
 
-  getSelectedProject() {
-    // return
-    return '0';
+  async routeToIndex(index: number): Promise<void> {
+    // TODO make this relative to the parent url
+    await this.router.navigate([`account/${this.auth.getUserID()}/projects/${index}`]);
   }
 }

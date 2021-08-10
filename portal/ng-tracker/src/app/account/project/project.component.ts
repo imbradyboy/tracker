@@ -1,12 +1,18 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {Select, Store} from "@ngxs/store";
-import {Observable} from "rxjs";
-import {catchError, map, take, tap} from "rxjs/operators";
+import {Observable, Subscription} from "rxjs";
+import {catchError, debounceTime, delay, map, take, tap} from "rxjs/operators";
 import {AccountState} from "../../core/state/projects/account.state";
 import {AccountService} from "../account.service";
-import {OpenWriteProjectDialog, SetSelectedProject} from "../../core/state/projects/account.actions";
+import {
+  OpenWriteProjectDialog,
+  ResetSelectedProject,
+  SetSelectedProject
+} from "../../core/state/projects/account.actions";
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
+import {startsWith} from "@rxweb/reactive-form-validators";
+import {DisconnectAll} from "@ngxs-labs/firestore-plugin";
 
 @Component({
   selector: 'app-project',
@@ -23,6 +29,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
     {name: "Fridge", value: 20000}
   ];
 
+  routeSubscription: Subscription | undefined; // subscribes to route parameters so we can listen to changes in id
+
+
   // loading state
   state$: Observable<any> | undefined;
 
@@ -30,25 +39,23 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    const projectId = this.route.snapshot.paramMap.get('projectId') as unknown as number;
 
-    this.state$ = this.store.select(AccountState.selectedProjectIndex)
-      .pipe(map(filterFn => filterFn(projectId)), tap(val => {
-        // invalid route param so reroute to console
-        if (val === -1) {
-          this.router.navigate([`/`]);
-        }
-      }));
+    this.routeSubscription = this.route.params.subscribe(async () => {
+      const projectId = this.route.snapshot.paramMap.get('projectId') as unknown as number;
 
-    this.store.dispatch(new SetSelectedProject(projectId));
+      this.state$ = this.store.select(AccountState.selectedProjectIndex)
+        .pipe(map(filterFn => filterFn(projectId)), tap(val => {
+          // invalid route param so reroute to console
+          if (val === -1) {
+            this.router.navigate([`/`]);
+          }
+        }));
 
-
-    // this.state$.pipe( tap(val => {
-    //   console.warn(val);
-    //   if (isNotNullOrUndefined(val)) {
-    //     // this.store.dispatch(new SetSelectedProject(projectId));
-    //   }
-    // }))
+      // TODO find a more elegant fix for this expression has been changed after it was checked issue
+      setTimeout(() => {
+        this.store.dispatch(new SetSelectedProject(projectId));
+      }, 0)
+    });
   }
 
   async deleteProject(pro: any): Promise<void> {
@@ -60,6 +67,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(new SetSelectedProject(-1));
+    this.store.dispatch(new ResetSelectedProject());
+    this.routeSubscription?.unsubscribe();
   }
 }
