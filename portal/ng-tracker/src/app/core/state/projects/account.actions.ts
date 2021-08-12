@@ -20,7 +20,7 @@ export class GetAccount {
 
 export class SetSelectedProject {
   public static readonly type = '[account] set selected project';
-  constructor(public selectedProjectIndex: number) {}
+  constructor(public selectedProjectId: string) {}
 }
 
 export class ResetSelectedProject {

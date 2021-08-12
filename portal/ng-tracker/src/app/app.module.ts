@@ -33,6 +33,7 @@ import {NgxsFirestoreModule} from "@ngxs-labs/firestore-plugin";
 import {AccountComponent} from './account/account.component';
 import { DeleteProjectDialogComponent } from './account/delete-project-dialog/delete-project-dialog.component';
 import {NgxsResetPluginModule} from "ngxs-reset-plugin";
+import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 
 @NgModule({
   declarations: [
@@ -70,8 +71,13 @@ import {NgxsResetPluginModule} from "ngxs-reset-plugin";
     ], {
       developmentMode: !environment.production,
     }),
+    NgxsStoragePluginModule.forRoot({
+      key: AccountState
+    }),
     NgxsResetPluginModule.forRoot(),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production,
+    }),
     NgxsLoggerPluginModule.forRoot(),
     NgxsFirestoreModule.forRoot(),
     NgxChartsModule,

@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {SetSelectedProject} from "../../../core/state/projects/account.actions";
+import {Store} from "@ngxs/store";
 
 @Component({
   selector: 'app-project-card',
@@ -11,13 +13,14 @@ export class ProjectCardComponent implements OnInit {
   @Input() project: any;
   @Input() index: any;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private store: Store) {
+  }
 
   ngOnInit(): void {
   }
 
-  async routeToIndex(): Promise<void> {
-    await this.router.navigate([`projects/${this.index}`], {relativeTo: this.activatedRoute.parent});
+  async routeToProject(id: string): Promise<void> {
+    await this.router.navigate([`projects/${id}`], {relativeTo: this.activatedRoute.parent});
   }
 
 }

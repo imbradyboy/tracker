@@ -13,9 +13,7 @@ export class WriteProjectDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<WriteProjectDialogComponent>) { }
 
-  ngOnInit(): void {
-    console.log(this.data);
-  }
+  ngOnInit(): void {}
 
   isComplete($event: boolean) {
     if ($event) {

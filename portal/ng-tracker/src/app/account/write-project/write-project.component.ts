@@ -19,7 +19,8 @@ export class WriteProjectComponent implements OnInit {
 
 
   constructor(@Inject(authErrorsListToken) private authErrorCodes: Map<string, string>, private formBuilder: FormBuilder,
-              private accService: AccountService) {}
+              private accService: AccountService) {
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -29,11 +30,12 @@ export class WriteProjectComponent implements OnInit {
     this.form = this.formBuilder.group({
       nickname: [this.editProject?.nickname, [
         Validators.required,
+        Validators.pattern('.*\\w.*'), // eliminates white space
         Validators.maxLength(30)
       ]],
-      dbURL: this.formBuilder.control(this.editProject?.dbURL, RxwebValidators.url()),
+      dbURL: [this.editProject?.dbURL, RxwebValidators.url()],
+      id: [this.editProject?.id]
     });
-
   }
 
   async submit(form: any): Promise<void> {
@@ -41,7 +43,7 @@ export class WriteProjectComponent implements OnInit {
       try {
         this.isLoading.emit(true);
         // pass in new values as well as old ones so we can update the old array element
-        await this.accService.writeProject(form, this.editProject);
+        await this.accService.writeProject(form);
         this.isComplete.emit(true);
       } catch (err) {
         if (this.authErrorCodes.has(err.message)) {

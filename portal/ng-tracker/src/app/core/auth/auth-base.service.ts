@@ -9,6 +9,10 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {isNotNullOrUndefined} from 'codelyzer/util/isNotNullOrUndefined';
 import firebase from "firebase/app";
 import User = firebase.User;
+import {DisconnectAll} from "@ngxs-labs/firestore-plugin";
+import {StateReset, StateResetAll} from "ngxs-reset-plugin";
+import {Store} from "@ngxs/store";
+import {AccountState} from "../state/projects/account.state";
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +23,10 @@ export class AuthBaseService {
   private isValidUser: boolean = false;
   private userRole = null;
 
-  constructor(protected afAuth: AngularFireAuth) {
+  constructor(protected afAuth: AngularFireAuth, protected store: Store) {
     // listen for IdToken change instead of authstate so we can detect
     // when user has had user custom claim applied if user role has been updated to admin or employee
     this.afAuth.onIdTokenChanged(async user => {
-
       if (user) { // user is authenticated
         this.user = user;
 
@@ -32,6 +35,9 @@ export class AuthBaseService {
           this.userRole = idTokenResult.claims.userRole;
         });
       } else {
+        this.store.dispatch(new DisconnectAll()); // disconnect all firebase listeners
+        this.store.dispatch(new StateResetAll()); // reset state to default
+        this.store.dispatch(new StateReset(AccountState)); // to reset the persistent account state
         this.user = undefined; // not authenticated so set user to null
         this.userRole = null;
         this.isValidUser = false;

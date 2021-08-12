@@ -28,7 +28,6 @@ export class DeleteProjectDialogComponent implements OnInit {
 
     try {
       await this.accService.deleteProject(this.data);
-      await this.router.navigate([`/`]);
       this.dialogRef.close();
       this.popup.openSnackBar(`${this.data.nickname} was deleted`);
     } catch (err) {

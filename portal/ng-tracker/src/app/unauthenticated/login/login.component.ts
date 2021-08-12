@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
           this.error = err;
         }
         // print error to console if user wants to see the exact message
-        console.log(err);
+        console.error(err);
 
         // stop loading on fail
         this.store.dispatch([

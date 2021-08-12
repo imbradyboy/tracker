@@ -19,6 +19,9 @@ mat-tab-group label {
   }
 }
 
+/*______________________________________________________________________
+ * Style overrides
+ * ______________________________________________________________________*/
 // on larger devices remove the background of the "no projects" card
 @media screen and (min-width: map-get($grid-breakpoints, 'sm')) {
   .no-bg-card {

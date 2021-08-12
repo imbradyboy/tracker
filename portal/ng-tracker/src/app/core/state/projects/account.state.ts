@@ -3,7 +3,7 @@
  * Follow tutorial here: https://fireship.io/lessons/ngxs-quick-start-angular-state-management/ for setting it up
  */
 
-import {Action, createSelector, Selector, State, StateContext} from '@ngxs/store';
+import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {
   GetAccount,
   OpenDeleteProjectDialog,
@@ -22,8 +22,11 @@ import {ProgressBarMode} from "@angular/material/progress-bar";
 import {Route, Router} from "@angular/router";
 import {LoadingStateModel} from "../loader/loading.state";
 import {DeleteProjectDialogComponent} from "../../../account/delete-project-dialog/delete-project-dialog.component";
+import {Observable} from "rxjs";
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 
 export interface Project {
+  id: string,
   dbUrl: string,
   nickname: string,
 }
@@ -58,22 +61,31 @@ export class AccountState {
   }
 
   // returns the required index
-  @Selector()
-  static selectedProjectIndex(state: any) {
-    return (index: number) => { //<--- Return a function from select
-      if (index > state.projects.length - 1 || isNaN(index)) {
-        return -1; // signifies an error
-      }
-      return state.projects[index];
-    };
-  }
+  // @Selector()
+  // static selectedProjectIndex(state: any) {
+  //   return (id: string) => { //<--- Return a function from select
+  //     const elementIndex = state.projects.findIndex((exp: any) => exp.id === id);
+  //     return state.projects[elementIndex] || -1;
+  //   };
+  // }
 
   // store GET action in state
   @Action(StreamEmitted(GetAccount))
-  getAccount({patchState}: StateContext<any>, {payload}: Emitted<GetAccount, any>) {
-    patchState(
-      payload
-    )
+  getAccount(ctx: StateContext<any>, {payload}: Emitted<GetAccount, any>) {
+
+    // make sure payload exists before trying to patch
+    if (isNotNullOrUndefined(payload)) {
+      ctx.patchState(
+        payload
+      )
+    }
+
+    // check if a selected project already exists and update it here
+    const state = ctx.getState();
+    const selectedProject = state.selectedProject;
+    if (isNotNullOrUndefined(selectedProject)) {
+      ctx.dispatch(new SetSelectedProject(selectedProject.id));
+    }
   }
 
   @Action(OpenWriteProjectDialog)
@@ -100,13 +112,19 @@ export class AccountState {
   }
 
   @Action(SetSelectedProject)
-  setSelectedProject(ctx: StateContext<any>, payload: SetSelectedProject): void {
+  setSelectedProject(ctx: StateContext<any>, payload: SetSelectedProject) {
     const state = ctx.getState();
 
-    if (state) {
-      const selectedProject = state.projects[payload.selectedProjectIndex];
-      ctx.patchState({selectedProject: selectedProject});
+    const elementIndex = state.projects.findIndex((exp: any) => exp.id === payload.selectedProjectId);
+
+    // invalid route param so redirect to console
+    if (elementIndex === -1) {
+      return this.router.navigate([`account/${this.auth.getUserID()}`]);
     }
+
+    // return state.projects[index];
+    const selectedProject = state.projects[elementIndex];
+    return ctx.patchState({selectedProject: selectedProject});
   }
 
   @Action(ResetSelectedProject)

@@ -7,9 +7,10 @@ import {LoadingStateModel} from "./core/state/loader/loading.state";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "./core/auth/auth.service";
 import {LogoutDialogComponent} from "./account/logout-dialog/logout-dialog.component";
-import {OpenWriteProjectDialog} from "./core/state/projects/account.actions";
-import {debounceTime, delay} from "rxjs/operators";
+import {OpenWriteProjectDialog, SetSelectedProject} from "./core/state/projects/account.actions";
 import {ActivatedRoute, Router} from "@angular/router";
+import {delay, map} from "rxjs/operators";
+import {AccountState} from "./core/state/projects/account.state";
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this.store.snapshot().account);
+    // this.selectedProjectState$ = this.store.select(AccountState.selectedProjectIndex)
+    //   .pipe(map(filterFn => filterFn(this.store.snapshot().account.selectedProject.id)));
   }
 
   ngOnDestroy(): void {
@@ -69,8 +71,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.store.dispatch([new OpenWriteProjectDialog]);
   }
 
-  async routeToIndex(index: number): Promise<void> {
-    // TODO make this relative to the parent url
-    await this.router.navigate([`account/${this.auth.getUserID()}/projects/${index}`]);
+  async routeToProject(id: string): Promise<void> {
+    // redirect relative to account/uid
+    await this.router.navigate([`projects/${id}`], {relativeTo: this.activatedRoute.firstChild});
   }
 }

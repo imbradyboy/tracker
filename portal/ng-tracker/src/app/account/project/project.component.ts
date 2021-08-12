@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {Store} from "@ngxs/store";
-import {Observable, Subscription} from "rxjs";
-import {map, tap} from "rxjs/operators";
+import {Select, Store} from "@ngxs/store";
+import {interval, Observable, Subscription, timer} from "rxjs";
+import {delay, map, tap} from "rxjs/operators";
 import {AccountState} from "../../core/state/projects/account.state";
 import {AccountService} from "../account.service";
 import {
@@ -31,27 +31,29 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
 
   // loading state
-  state$: Observable<any> | undefined;
+  // state$: Observable<any> | undefined;
+  @Select((state: any) => state.account.selectedProject) state$: Observable<any> | undefined;
+
 
   constructor(private route: ActivatedRoute, private router: Router, private store: Store, private accService: AccountService) {
   }
 
-  async ngOnInit(): Promise<void> {
-
+  ngOnInit(): void {
     this.routeSubscription = this.route.params.subscribe(async () => {
-      const projectId = this.route.snapshot.paramMap.get('projectId') as unknown as number;
+      const projectId = this.route.snapshot.paramMap.get('projectId') as string;
 
-      this.state$ = this.store.select(AccountState.selectedProjectIndex)
-        .pipe(map(filterFn => filterFn(projectId)), tap(val => {
-          // invalid route param so reroute to console
-          if (val === -1) {
-            this.router.navigate([`/`]);
-          }
-        }));
+      // this.state$ = this.store.select(AccountState.selectedProjectIndex)
+      //   .pipe(map(filterFn => filterFn(projectId)), tap(val => {
+      //     // invalid route param so reroute to console
+      //     if (val === -1) {
+      //       this.router.navigate([`/`]);
+      //     }
+      //   }));
 
-      // TODO find a more elegant fix for this expression has been changed after it was checked issue
+      // workaround for a known issue. Throws ExpressionChangedAfterItHasBeenCheckedError when dispatched in oninit
+      // other fixes include dispatching in constructor, but that's bad practice
       setTimeout(() => {
-        this.store.dispatch(new SetSelectedProject(projectId));
+      this.store.dispatch(new SetSelectedProject(projectId));
       }, 0)
     });
   }

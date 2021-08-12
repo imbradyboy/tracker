@@ -14,7 +14,7 @@
         <ng-container *ngIf="pro.length != 0">
           {{'' // get selected project from state so we can set it as selected dropdown option if it exists}}
           <ng-container *ngIf="selectedProjectState$ | async as sp">
-            <mat-divider class="mx-4" style="height:40px" [vertical]="true"></mat-divider>
+            <mat-divider id="toolbar-divider" class="mx-4" [vertical]="true"></mat-divider>
             <mat-form-field id="project-picker" appearance="legacy">
               <mat-select #selector [value]="sp.nickname || '0'">
                 <mat-option value="0" disabled>Select project</mat-option>
@@ -22,7 +22,7 @@
                 <div class="no-disabled-styles mat-option" (click)="openWriteProjectDialog(selector)">Create new project
                 </div>
                 <mat-option *ngFor="let p of pro; let i = index" [value]="p.nickname"
-                            (click)="routeToIndex(i)">{{p.nickname}}</mat-option>
+                            (click)="routeToProject(p.id)">{{p.nickname}}</mat-option>
               </mat-select>
             </mat-form-field>
           </ng-container>

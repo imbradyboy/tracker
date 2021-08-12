@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/firestore";
+import {AngularFirestore} from "@angular/fire/firestore";
 import {Observable} from "rxjs";
 import {AuthBaseService} from "../core/auth/auth-base.service";
 import * as firebase from 'firebase/app';
 import {NgxsFirestore, NgxsFirestoreAdapter} from "@ngxs-labs/firestore-plugin";
 import {Store} from "@ngxs/store";
-import {GetAccount, OpenDeleteProjectDialog, SetSelectedProject} from "../core/state/projects/account.actions";
+import {GetAccount, OpenDeleteProjectDialog} from "../core/state/projects/account.actions";
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
+import {ActivatedRoute, Router} from "@angular/router";
+import {delay, take, timeout} from "rxjs/operators";
 
 
 @Injectable({
@@ -16,7 +19,7 @@ export class AccountService extends NgxsFirestore<any> {
   protected path: string;
 
   constructor(private afs: AngularFirestore, private auth: AuthBaseService, adapter: NgxsFirestoreAdapter,
-              private store: Store) {
+              private store: Store, private router: Router, private activatedRoute: ActivatedRoute) {
     super(adapter);
     this.path = `users`;
   }
@@ -30,9 +33,9 @@ export class AccountService extends NgxsFirestore<any> {
 
   // do this here instead of state because it's a lot easier to do array Unions
   // and state is syncing this up anyway so it doesn't matter
-  async writeProject(form: any, oldProject: any) {
+  async writeProject(form: any) {
 
-    if (oldProject) {
+    if (isNotNullOrUndefined(form.id)) {
       // get snapshot of projects from state
       const projects: any[] = this.store.snapshot().account.projects;
 
@@ -40,36 +43,53 @@ export class AccountService extends NgxsFirestore<any> {
       let projectsForUpdate = [...projects];
 
       // get the index of the project being updated by matching the url and nickname with an element in the state array
-      const updateIndex = projects.findIndex((exp: any) => exp.nickname === oldProject.nickname && exp.dbURL === oldProject.dbURL);
+      const updateIndex = projects.findIndex((exp: any) => exp.id === form.id);
 
       // update the project at the found element
       projectsForUpdate[updateIndex] = form;
 
       // update this project
-      await this.afs.doc(`users/${this.auth.getUserID()}`).update({
-        projects: projectsForUpdate
-      });
+      await this.update$(this.auth.getUserID(),
+        {
+          projects: projectsForUpdate
+        }, {merge: true});
 
-      // re fetch selected project because we have changed its name
-      this.store.dispatch(new SetSelectedProject(updateIndex));
     } else {
-      // this is a create so add a new project
+
+      // construct a new project from the form data and auto generate an id for it
+      const newProject = {
+        ...form,
+        id: this.createId()
+      }
+
+
+      // // this is a create so add a new project
+      // const test = await this.update$(this.auth.getUserID(), {
+      //   projects: firebase.default.firestore.FieldValue.arrayUnion(newProject)
+      // }, {merge: true});
+      //
+      // await test.pipe(take(1)).subscribe(async val => {
+      //   await this.router.navigate([`projects/${newProject.id}`], {relativeTo: this.activatedRoute.firstChild});
+      // })
+      // TODO find a way to use the Firestore plugin functions and still redirect on create
       await this.afs.doc(`users/${this.auth.getUserID()}`).set({
-        projects: firebase.default.firestore.FieldValue.arrayUnion(form)
+        projects: firebase.default.firestore.FieldValue.arrayUnion(newProject)
       }, {merge: true});
+
+      await this.router.navigate([`projects/${newProject.id}`], {relativeTo: this.activatedRoute.firstChild});
+
     }
   }
 
-  // do this here instead of state because it's a lot easier to do array Unions
-  // and state is syncing this up anyway so it doesn't matter
+
   async openDeleteProjectDialog(project: any) {
     this.store.dispatch(new OpenDeleteProjectDialog(project));
   }
 
   async deleteProject(project: any) {
-    await this.afs.doc(`users/${this.auth.getUserID()}`).set(
-      {
+    await this.update$(this.auth.getUserID(), {
         projects: firebase.default.firestore.FieldValue.arrayRemove(project)
-      }, {merge: true});
+      },
+      {merge: true});
   }
 }
