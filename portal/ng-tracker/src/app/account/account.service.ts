@@ -49,10 +49,12 @@ export class AccountService extends NgxsFirestore<any> {
       projectsForUpdate[updateIndex] = form;
 
       // update this project
-      await this.update$(this.auth.getUserID(),
+      const updateRes = await this.update$(this.auth.getUserID(),
         {
           projects: projectsForUpdate
         }, {merge: true});
+
+      await updateRes.toPromise();
 
     } else {
 
@@ -64,17 +66,11 @@ export class AccountService extends NgxsFirestore<any> {
 
 
       // // this is a create so add a new project
-      // const test = await this.update$(this.auth.getUserID(), {
-      //   projects: firebase.default.firestore.FieldValue.arrayUnion(newProject)
-      // }, {merge: true});
-      //
-      // await test.pipe(take(1)).subscribe(async val => {
-      //   await this.router.navigate([`projects/${newProject.id}`], {relativeTo: this.activatedRoute.firstChild});
-      // })
-      // TODO find a way to use the Firestore plugin functions and still redirect on create
-      await this.afs.doc(`users/${this.auth.getUserID()}`).set({
+      const createRes = await this.update$(this.auth.getUserID(), {
         projects: firebase.default.firestore.FieldValue.arrayUnion(newProject)
       }, {merge: true});
+
+      await createRes.toPromise();
 
       await this.router.navigate([`projects/${newProject.id}`], {relativeTo: this.activatedRoute.firstChild});
 
@@ -87,9 +83,11 @@ export class AccountService extends NgxsFirestore<any> {
   }
 
   async deleteProject(project: any) {
-    await this.update$(this.auth.getUserID(), {
+    const deleteRes = await this.update$(this.auth.getUserID(), {
         projects: firebase.default.firestore.FieldValue.arrayRemove(project)
       },
       {merge: true});
+
+    await deleteRes.toPromise();
   }
 }
